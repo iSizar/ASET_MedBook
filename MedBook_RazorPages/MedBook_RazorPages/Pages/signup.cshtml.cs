@@ -12,7 +12,7 @@ namespace MedBook_RazorPages.Pages
 
         private DatabaseContext db;
 
-        public void SignUpModel(DatabaseContext _db) {
+        public signupModel(DatabaseContext _db) {
             db = _db;
         }
 
