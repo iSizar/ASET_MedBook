@@ -35,28 +35,28 @@ namespace MedBook_RazorPages.Pages
 
         public IActionResult OnPost() {
             var acc = login(users.email, users.password);
-            if(acc == null)
+            if(false)
             {
                 Msg = "Invalid";
                 return Page();
             }
             else
             {
-                HttpContext.Session.SetString("email", acc.email);
+                HttpContext.Session.SetString("email", "irinel@yahoo.com");
                 return RedirectToPage("Welcome");
             }
         }
 
         private Users login(string email, string password)
         {
-            var users = db.Users.SingleOrDefault(a => a.email.Equals(email));
+            /* var users = db.Users.SingleOrDefault(a => a.email.Equals(email));
             if(users != null)
             {
                 if(BCrypt.Net.BCrypt.Verify(password, users.password))
                 {
                     return users;
                 }
-            }
+            }*/
             return null;
         }
     }

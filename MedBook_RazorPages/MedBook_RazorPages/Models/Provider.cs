@@ -15,9 +15,9 @@ namespace MedBook_RazorPages.Models
 
         public string Address { get; set; }
 
-        public List<Appointment> Appointments { get; private set; }
+        public List<MedicalService> MedicalService { get; private set; }
 
-        public bool AddAppointment(DateTime appointmentDate, Users user)
+        public bool AddMedicalService(DateTime appointmentDate, Users user)
         { 
             throw new NotImplementedException();
         }
