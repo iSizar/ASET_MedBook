@@ -1,0 +1,20 @@
+﻿@page
+@model MedBook_RazorPages.Pages.WelcomeModel
+@using Microsoft.AspNetCore.Http
+@{
+    ViewData["Title"] = "Welcome";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+</head>
+<body>
+    Welcome @HttpContext.Session.GetString("email")
+    <br />
+    <a asp-page="index" asp-page-handler="logout">Logout</a>
+    <a asp-page="profile" asp-page-handler="logout">Change Profile</a>
+</body>
+</html>

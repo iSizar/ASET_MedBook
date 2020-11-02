@@ -21,12 +21,12 @@ namespace MedBook_RazorPages.Pages
             users = new Users();
         }
 
-        public RedirectToPageResult OnPost()
+        public IActionResult OnPost()
         {
             Console.WriteLine(users.email);
             users.password = BCrypt.Net.BCrypt.HashPassword(users.password);
             db.Users.Add(users);
-            db.SaveChanges();
+             db.SaveChanges();
             return RedirectToPage("index");
 
         }

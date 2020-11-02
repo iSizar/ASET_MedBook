@@ -1,0 +1,58 @@
+﻿@page
+@model MedBook_RazorPages.Pages.ProfileModel
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+</head>
+<body>
+    <h3>Profile</h3>
+    <form method="post" asp-page="profile">
+        <table>
+            <tr>
+                <td>FirstName</td>
+                <td>
+                    <input asp-for="@Model.users.firstName" />
+                </td>
+            </tr>
+            <tr>
+                <td>LastName</td>
+                <td>
+                    <input asp-for="@Model.users.lastName" />
+                </td>
+            </tr>
+            <tr>
+                <td>password</td>
+                <td>
+                    <input type="password" asp-for="@Model.users.password" />
+                </td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>
+                    <input type="email" asp-for="@Model.users.email" />
+                    <input type="hidden" asp-for="@Model.users.id" />
+                </td>
+            </tr>
+            <tr>
+                <td>AccountType</td>
+                <td>
+                    <input asp-for="@Model.users.accountType" />
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="Save" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
+

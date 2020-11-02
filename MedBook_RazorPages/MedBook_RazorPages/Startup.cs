@@ -24,10 +24,11 @@ namespace MedBook_RazorPages
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSession();
             services.AddRazorPages();
             services.AddMvc(option => option.EnableEndpointRouting = false);
-            /*MvcOptions ceva = new MvcOptions();
-            ceva.EnableEndpointRouting = false;*/
+
+            
 
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<DatabaseContext>(opstions => opstions.UseSqlServer(connection));
@@ -46,7 +47,7 @@ namespace MedBook_RazorPages
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -59,6 +60,7 @@ namespace MedBook_RazorPages
                 endpoints.MapRazorPages();
             });
 
+           
             app.UseMvc();
         }
     }
