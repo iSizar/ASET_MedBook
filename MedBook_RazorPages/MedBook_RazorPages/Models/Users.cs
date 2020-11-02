@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MedBook_RazorPages.Models
@@ -18,5 +20,22 @@ namespace MedBook_RazorPages.Models
         public string email { get; set; }
 
         public int accountType { get; set; }
+
+        public List<Appointment> Appointments { get; private set; }
+
+        public bool MakeAppointment(DateTime appointmentDate, Provider provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnNotification()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CancelAppointment(Appointment appointment)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
