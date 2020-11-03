@@ -37,5 +37,9 @@ namespace MedBook_RazorPages.Models
         {
             throw new NotImplementedException();
         }
+        public bool AddReview()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
