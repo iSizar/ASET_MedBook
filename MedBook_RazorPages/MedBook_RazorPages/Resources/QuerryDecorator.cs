@@ -9,35 +9,14 @@ namespace MedBook_RazorPages.Resources
 {
     public class QuerryDecorator
     {
-        public string mQuerry { set; get; }
-        public string mAppointmentType { set; get; }
+        public string mDescription{ set; get; }
+        public string mTargetBodySystem { set; get; }
         public string mCity { set; get; }
         public DateTime mLeftDateInterval { set; get; }
         public DateTime mRightDateInterval { set; get; }
 
-        QuerryDecorator(string querry)
+        public QuerryDecorator()
         {
-            this.mQuerry = querry;
-        }
-
-        QuerryDecorator(string querry,
-            string appointmentType)
-        {
-            this.mQuerry = querry;
-            this.mAppointmentType = appointmentType;
-        }
-        QuerryDecorator(string querry,
-            string appointmentType,
-            string city)
-        {
-            this.mQuerry = querry;
-            this.mAppointmentType = appointmentType;
-            mCity = city;
-        }
-
-        public List<MedicalService> getListOfMedicalServices()
-        {
-            throw new NotImplementedException();
         }
 
     }

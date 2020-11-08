@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace MedBook_RazorPages.Models
 {
+    [Table("Review")]
     public class Review
     {
         [Key]
         public int id { get; set; }
         
-        //[ForeignKey]
+        public int UserId { get; set; }
         public int MedicalServiceId { get; set; }
         public string Comment { get; set; }
         public int Rating { get; set; }
