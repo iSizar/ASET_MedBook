@@ -14,16 +14,13 @@ namespace MedBook_RazorPages.Resources
             return locations.Where(l => l.id == id).FirstOrDefault();
         }
 
-        public List<MedicalService> getAllMedicalSerices(List<MedicalService> medicalService, List<Location> locations, QuerryDecorator querryDecorator)
+        public List<MedicalService> getAllMedicalSerices(List<MedicalService> medicalService,
+            List<Location> locations,
+            QuerryDecorator querryDecorator)
         {
             List<MedicalService> retList = new List<MedicalService>();
             retList.Clear();
-
-            if (querryDecorator.mLeftDateInterval != default(DateTime) || querryDecorator.mRightDateInterval != default(DateTime))
-            {
-                throw new NotImplementedException();
-            }
-
+           
             foreach (MedicalService medServ in medicalService)
             {
                 bool isValid = true;
@@ -47,15 +44,11 @@ namespace MedBook_RazorPages.Resources
         }
 
 
-        public List<MedicalService> getAllMedicalSerices(List<MedicalService> medicalService, QuerryDecorator querryDecorator)
+        public List<MedicalService> getAllMedicalSerices(List<MedicalService> medicalService,
+            QuerryDecorator querryDecorator)
         {
             List<MedicalService> retList = new List<MedicalService>();
             retList.Clear();
-
-            if (querryDecorator.mLeftDateInterval != default(DateTime) || querryDecorator.mRightDateInterval != default(DateTime))
-            {
-                throw new NotImplementedException();
-            }
 
             foreach (MedicalService medServ in medicalService)
             {
@@ -64,38 +57,7 @@ namespace MedBook_RazorPages.Resources
                 {
                     isValid = false;
                 }
-
-                if (querryDecorator.mLeftDateInterval != default(DateTime))
-                {
-                    
-                }
-                if (querryDecorator.mRightDateInterval != default(DateTime))
-                {
-                    
-                }
-                if (isValid)
-                {
-                    retList.Add(medServ);
-                }
-            }
-            return retList;
-        }
-
-
-        public List<MedicalService> getAllMedicalSerices(List<MedicalService> medicalService, List<Appointment> appointments, QuerryDecorator querryDecorator)
-        {
-            List<MedicalService> retList = new List<MedicalService>();
-            retList.Clear();
-
-            if (querryDecorator.mLeftDateInterval != default(DateTime) || querryDecorator.mRightDateInterval != default(DateTime))
-            {
-                throw new NotImplementedException();
-            }
-
-            foreach (MedicalService medServ in medicalService)
-            {
-                bool isValid = true;
-                if (querryDecorator.mDescription != default(string) && !medServ.Description.Contains(querryDecorator.mDescription))
+                if (querryDecorator.mTargetBodySystem != default(string) && !medServ.TargetBodySystem.Contains(querryDecorator.mTargetBodySystem))
                 {
                     isValid = false;
                 }

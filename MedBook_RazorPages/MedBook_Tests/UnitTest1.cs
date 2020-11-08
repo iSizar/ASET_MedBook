@@ -48,11 +48,13 @@ namespace MedBook_Tests
             // ================= MedicalService ==================
             MedicalService m1 = new MedicalService();
             m1.Description = "Radiologie dentara";
+            m1.TargetBodySystem = "sistemul osos";
             m1.LocationId = 1;
             
             MedicalService m2 = new MedicalService();
             m2.Description = "Analiza sangelui";
             m2.LocationId = 2;
+            m2.TargetBodySystem = "sistemul circulator";
 
             locations.Add(location1);
             locations.Add(location2);
@@ -130,60 +132,23 @@ namespace MedBook_Tests
             TearDown();
         }
 
+        
         [Fact]
-        public void TestLeftTimeBound()
+        public void TestPrividerNameSet()
         {
             TearUp();
             QuerryDecorator querryDecorator = new QuerryDecorator();
             FilterOfRows fl = new FilterOfRows();
 
-            querryDecorator.mLeftDateInterval = new DateTime(2020, 12, 31, 8, 0, 0);
+            querryDecorator.mTargetBodySystem = "sistemul circulator";
 
             List<MedicalService> list = fl.getAllMedicalSerices(services, querryDecorator);
 
             foreach (var medServ in list)
             {
-                Assert.Contains("Analiza", medServ.Description);
+                Assert.Contains("sistemul circulator", medServ.TargetBodySystem);
             }
             TearDown();
         }
-
-        [Fact]
-        public void TestRightTimeBound()
-        {
-            TearUp();
-            QuerryDecorator querryDecorator = new QuerryDecorator();
-            FilterOfRows fl = new FilterOfRows();
-
-            querryDecorator.mRightDateInterval = new DateTime(2021, 12, 31, 8, 0, 0);
-
-            List<MedicalService> list = fl.getAllMedicalSerices(services, querryDecorator);
-
-            foreach (var medServ in list)
-            {
-                Assert.Contains("Analiza", medServ.Description);
-            }
-            TearDown();
-        }
-
-        [Fact]
-        public void TestLeftRightTimeBound()
-        {
-            TearUp();
-            QuerryDecorator querryDecorator = new QuerryDecorator();
-            FilterOfRows fl = new FilterOfRows();
-
-            querryDecorator.mLeftDateInterval = new DateTime(2020, 12, 31, 8, 0, 0);
-            querryDecorator.mRightDateInterval = new DateTime(2021, 12, 31, 8, 0, 0);
-
-            List<MedicalService> list = fl.getAllMedicalSerices(services, querryDecorator);
-
-            foreach (var medServ in list)
-            {
-                Assert.Contains("Analiza", medServ.Description);
-            }
-            TearDown();
-        }
-
     }
 }
