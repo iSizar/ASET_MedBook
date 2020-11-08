@@ -25,18 +25,18 @@ namespace MedBook_RazorPages.Pages
         public void OnGet()
         {
             var email = HttpContext.Session.GetString("email");
-            users = db.Users.SingleOrDefault(a => a.email.Equals(email));
+            users = db.Users.SingleOrDefault(a => a.Email.Equals(email));
         }
 
         public IActionResult OnPost()
         {
-            if (!string.IsNullOrEmpty(users.password))
+            if (!string.IsNullOrEmpty(users.Password))
             {
-                users.password = BCrypt.Net.BCrypt.HashPassword(users.password);
+                users.Password = BCrypt.Net.BCrypt.HashPassword(users.Password);
             }
             else
             {
-                users.password = db.Users.AsNoTracking().SingleOrDefault(a => a.id == users.id).password;
+                users.Password = db.Users.AsNoTracking().SingleOrDefault(a => a.id == users.id).Password;
             }
             db.SaveChanges();
             db.Entry(users).State = Microsoft.EntityFrameworkCore.EntityState.Modified;

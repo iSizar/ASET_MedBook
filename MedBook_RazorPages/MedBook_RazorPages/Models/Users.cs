@@ -11,22 +11,16 @@ namespace MedBook_RazorPages.Models
         [Key]
         public int id { get; set; }
 
-        public string firstName { get; set; }
+        public string FirstName { get; set; }
 
-        public string lastName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
 
-        public string password { get; set; }
+        public string Password { get; set; }
     
-        public string email { get; set; }
-
-        public int accountType { get; set; }
+        public int UserType { get; set; }
 
         public List<Appointment> Appointments { get; private set; }
-
-        public bool MakeAppointment(DateTime appointmentDate, Provider provider)
-        {
-            throw new NotImplementedException();
-        }
 
         public void OnNotification()
         {

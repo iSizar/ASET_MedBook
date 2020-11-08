@@ -10,8 +10,10 @@ namespace MedBook_RazorPages.Models
         
         public DbSet<Users> Users { get; set; }
         
-        public DbSet<MedBook_RazorPages.Models.MedicalService> MedicalService { get; set; }
+        public DbSet<MedicalService> MedicalService { get; set; }
         
-        public DbSet<MedBook_RazorPages.Models.Review> Review { get; set; }
+        public DbSet<Review> Review { get; set; }
+        public DbSet<Location> Location { get; set; }
+        public DbSet<Appointment> Appointment { get; set; }
     }
 }
