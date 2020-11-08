@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MedBook_RazorPages.Models;
+using MedBook_RazorPages.Resources;
 
 namespace MedBook_RazorPages.Pages
 {
@@ -13,6 +14,8 @@ namespace MedBook_RazorPages.Pages
     {
         private readonly MedBook_RazorPages.Models.DatabaseContext _context;
 
+        [BindProperty]
+        public QuerryDecorator querryDecorator { get; set; }
         public SearchModel(MedBook_RazorPages.Models.DatabaseContext context)
         {
             _context = context;

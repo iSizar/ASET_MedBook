@@ -11,8 +11,11 @@ namespace MedBook_RazorPages.Models
         [Key]
         public int Id { get; set; }
 
-        public DateTime AppointmentDate { get; set; }
-
+        public int PacientId { get; set; }
+        public int MedicalServiceId { get; set; }
+        public string Description { get; set; }
+        public DateTime TimeOfAppointment { get; set; }
+        public TimeSpan AppointmentDuration { get; set; }
         public Users User { get; set; }
         public MedicalService MedicalService { get; set; }
 

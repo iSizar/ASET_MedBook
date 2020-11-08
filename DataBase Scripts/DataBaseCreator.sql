@@ -1,15 +1,13 @@
 create database MedBookDB 
 use MedBookDB
 
-
-
 create table Users
 (
 id int primary key identity(1, 1),
 FirstName varchar(50),
 LastName varchar(50),
 Email varchar(50),
-Password varchar(50),
+Password varchar(200),
 UserType int
 );
 
@@ -18,7 +16,10 @@ create table MedicalService
 id int primary key identity(1, 1),
 UserId int,
 Name varchar(50),
-Description varchar(50)
+Description varchar(50),
+DayStartTime time, 
+DayEndTime time,
+AppDefaultMinutes time,
 
 FOREIGN KEY (UserId) REFERENCES Users(id)
 );
@@ -43,7 +44,6 @@ Rating int
 FOREIGN KEY (MedicalServiceId) REFERENCES MedicalService(id)
 );
 
-
 create table Appointment
 (
 id int primary key identity(1, 1), 
@@ -51,7 +51,7 @@ PacientId int,
 MedicalServiceId int,
 Description varchar(50),
 TimeOfAppointment datetime, 
-AppointmentDuration int
+AppointmentDuration time
 
 FOREIGN KEY (PacientId) REFERENCES Users(id),
 FOREIGN KEY (MedicalServiceId) REFERENCES MedicalService(id)
