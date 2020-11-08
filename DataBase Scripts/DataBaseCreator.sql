@@ -1,6 +1,8 @@
 create database MedBookDB 
 use MedBookDB
 
+
+
 create table Users
 (
 id int primary key identity(1, 1),
@@ -16,8 +18,7 @@ create table MedicalService
 id int primary key identity(1, 1),
 UserId int,
 Name varchar(50),
-Description varchar(50),
-UserType int
+Description varchar(50)
 
 FOREIGN KEY (UserId) REFERENCES Users(id)
 );
@@ -42,13 +43,15 @@ Rating int
 FOREIGN KEY (MedicalServiceId) REFERENCES MedicalService(id)
 );
 
+
 create table Appointment
 (
 id int primary key identity(1, 1), 
 PacientId int,
 MedicalServiceId int,
 Description varchar(50),
-UserType int
+TimeOfAppointment datetime, 
+AppointmentDuration int
 
 FOREIGN KEY (PacientId) REFERENCES Users(id),
 FOREIGN KEY (MedicalServiceId) REFERENCES MedicalService(id)
