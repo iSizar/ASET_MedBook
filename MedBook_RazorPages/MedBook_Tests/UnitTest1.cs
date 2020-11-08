@@ -150,5 +150,24 @@ namespace MedBook_Tests
             }
             TearDown();
         }
+
+        [Fact]
+        public void TestPrividerNameWrongSet()
+        {
+            TearUp();
+            QuerryDecorator querryDecorator = new QuerryDecorator();
+            FilterOfRows fl = new FilterOfRows();
+
+            querryDecorator.mTargetBodySystem = "sistemul circulator";
+
+            List<MedicalService> list = fl.getAllMedicalSerices(services, querryDecorator);
+
+            foreach (var medServ in list)
+            {
+                Assert.DoesNotContain("sistemul circulator gresit23", medServ.TargetBodySystem);
+            }
+            TearDown();
+        }
+
     }
 }
