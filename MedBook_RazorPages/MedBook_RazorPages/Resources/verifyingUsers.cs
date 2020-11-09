@@ -28,8 +28,8 @@ namespace MedBook_RazorPages.Resources
 
         public List<Users> changeUserByEmail(List<Users> users, Users description)
         {
-           for(int i = 0; i < users.Count; i++)
-                if(users[i].email == description.email)
+            for (int i = 0; i < users.Count; i++)
+                if (users[i].email == description.email)
                 {
                     users[i] = description;
                 }
