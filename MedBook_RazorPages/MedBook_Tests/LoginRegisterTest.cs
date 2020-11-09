@@ -5,16 +5,16 @@ using System.Linq;
 using System.Collections.Generic;
 using Xunit.Abstractions;
 
-namespace XUnitTestProject1
+namespace LoginRegisterTest
 
 {
-    public class UnitTest1
+    public class LoginRegisterTest
     {
         private List<Users> users;
 
         private readonly ITestOutputHelper output;
 
-        public UnitTest1(ITestOutputHelper output)
+        public LoginRegisterTest(ITestOutputHelper output)
         {
             this.output = output;
         }
@@ -26,16 +26,16 @@ namespace XUnitTestProject1
             }
 
             Users user1 = new Users();
-            user1.firstName = "Aioane";
-            user1.lastName = "Dragos";
-            user1.email = "dragosaioane1998@gmail.com";
-            user1.password = BCrypt.Net.BCrypt.HashPassword("testPassword");
+            user1.FirstName = "Aioane";
+            user1.LastName = "Dragos";
+            user1.Email = "dragosaioane1998@gmail.com";
+            user1.Password = BCrypt.Net.BCrypt.HashPassword("testPassword");
 
             Users user2 = new Users();
-            user2.firstName = "Gigiel";
-            user2.lastName = "popa";
-            user2.email = "gigelpopa@gmail.com";
-            user2.password = BCrypt.Net.BCrypt.HashPassword("testPassword");
+            user2.FirstName = "Gigiel";
+            user2.LastName = "popa";
+            user2.Email = "gigelpopa@gmail.com";
+            user2.Password = BCrypt.Net.BCrypt.HashPassword("testPassword");
 
             users.Add(user1);
             users.Add(user2);
@@ -58,13 +58,13 @@ namespace XUnitTestProject1
             Users description = new Users();
             verifyingUsers verifying = new verifyingUsers();
 
-            description.email = "draosaioane1999@gmail.com";
-            description.firstName = "Aioanei";
-            description.lastName = "Dragos";
-            description.password = BCrypt.Net.BCrypt.HashPassword("testPassword");
+            description.Email = "draosaioane1999@gmail.com";
+            description.FirstName = "Aioanei";
+            description.LastName = "Dragos";
+            description.Password = BCrypt.Net.BCrypt.HashPassword("testPassword");
             List<Users> list = verifying.getAllUsers(users, description);
 
-            Assert.Equal("draosaioane1999@gmail.com", users.Where(user => user.firstName == description.firstName).Single().email);
+            Assert.Equal("draosaioane1999@gmail.com", users.Where(user => user.FirstName == description.FirstName).Single().Email);
             clear();
         }
 
@@ -76,16 +76,16 @@ namespace XUnitTestProject1
             Users description = new Users();
             verifyingUsers verifying = new verifyingUsers();
 
-            description.email = "draosaioane1999@gmail.com";
-            description.firstName = "Aioanei";
-            description.lastName = "Dragos";
-            description.password = BCrypt.Net.BCrypt.HashPassword("testPassword");
+            description.Email = "draosaioane1999@gmail.com";
+            description.FirstName = "Aioanei";
+            description.LastName = "Dragos";
+            description.Password = BCrypt.Net.BCrypt.HashPassword("testPassword");
             users = verifying.getAllUsers(users, description);
             users = verifying.getAllUsers(users, description);
             int count = 0;
 
             foreach (var user in users) {
-                if (user.email == "draosaioane1999@gmail.com")
+                if (user.Email == "draosaioane1999@gmail.com")
                     count++;
             }
 
@@ -99,15 +99,15 @@ namespace XUnitTestProject1
             Users description = new Users();
             verifyingUsers verifying = new verifyingUsers();
 
-            description.firstName = "Giovanni";
-            description.lastName = "Andriasi";
-            description.email = "draosaioane1999@gmail.com";
-            description.password = BCrypt.Net.BCrypt.HashPassword("testPassword");
+            description.FirstName = "Giovanni";
+            description.LastName = "Andriasi";
+            description.Email = "draosaioane1999@gmail.com";
+            description.Password = BCrypt.Net.BCrypt.HashPassword("testPassword");
             
             users = verifying.getAllUsers(users, description);
 
-            Assert.NotEqual("testPassword", users.Where(user => user.firstName == description.firstName).Single().password);
-            Assert.Equal(description.password, users.Where(user => user.firstName == description.firstName).Single().password);
+            Assert.NotEqual("testPassword", users.Where(user => user.FirstName == description.FirstName).Single().Password);
+            Assert.Equal(description.Password, users.Where(user => user.FirstName == description.FirstName).Single().Password);
             clear();
         }
 
@@ -117,14 +117,14 @@ namespace XUnitTestProject1
             fillUp();
             Users description = new Users();
             verifyingUsers verifying = new verifyingUsers();
-            description.firstName = "Aioanei";
-            description.lastName = "Dragos";
-            description.password = BCrypt.Net.BCrypt.HashPassword("testPassword");
-            description.email = "dragosaioane1998@gmail.com";
+            description.FirstName = "Aioanei";
+            description.LastName = "Dragos";
+            description.Password = BCrypt.Net.BCrypt.HashPassword("testPassword");
+            description.Email = "dragosaioane1998@gmail.com";
 
             users = verifying.changeUserByEmail(users, description);
 
-            Assert.Equal(description.firstName, users.Where(user => user.firstName == description.firstName).Single().firstName);
+            Assert.Equal(description.FirstName, users.Where(user => user.FirstName == description.FirstName).Single().FirstName);
         }
     }
 }

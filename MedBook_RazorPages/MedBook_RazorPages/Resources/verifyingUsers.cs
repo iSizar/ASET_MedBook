@@ -17,7 +17,7 @@ namespace MedBook_RazorPages.Resources
             foreach (Users user in users)
             {
                 //check = true;
-                if (description.email == default(string) || description.email == user.email)
+                if (description.Email == default(string) || description.Email == user.Email)
                     check = false;
             }
 
@@ -29,7 +29,7 @@ namespace MedBook_RazorPages.Resources
         public List<Users> changeUserByEmail(List<Users> users, Users description)
         {
             for (int i = 0; i < users.Count; i++)
-                if (users[i].email == description.email)
+                if (users[i].Email == description.Email)
                 {
                     users[i] = description;
                 }
