@@ -26,7 +26,7 @@ namespace MedBook_RazorPages.Pages
             Console.WriteLine(users.email);
             users.password = BCrypt.Net.BCrypt.HashPassword(users.password);
             db.Users.Add(users);
-             db.SaveChanges();
+            db.SaveChanges();
             return RedirectToPage("index");
 
         }
