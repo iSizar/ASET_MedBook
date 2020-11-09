@@ -23,10 +23,10 @@ namespace MedBook_RazorPages.Pages
 
         public IActionResult OnPost()
         {
-            Console.WriteLine(users.email);
-            users.password = BCrypt.Net.BCrypt.HashPassword(users.password);
+            Console.WriteLine(users.Email);
+            users.Password = BCrypt.Net.BCrypt.HashPassword(users.Password);
             db.Users.Add(users);
-             db.SaveChanges();
+            db.SaveChanges();
             return RedirectToPage("index");
 
         }

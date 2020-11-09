@@ -34,7 +34,7 @@ namespace MedBook_RazorPages.Pages
         public Users users { get; set; }
 
         public IActionResult OnPost() {
-            var acc = login(users.email, users.password);
+            var acc = login(users.Email, users.Password);
             if(acc == null)
             {
                 Msg = "Invalid";
@@ -42,17 +42,17 @@ namespace MedBook_RazorPages.Pages
             }
             else
             {
-                HttpContext.Session.SetString("email", acc.email);
+                HttpContext.Session.SetString("email", acc.Email);
                 return RedirectToPage("Welcome");
             }
         }
 
         private Users login(string email, string password)
         {
-            var users = db.Users.SingleOrDefault(a => a.email.Equals(email));
+            var users = db.Users.SingleOrDefault(a => a.Email.Equals(email));
             if(users != null)
             {
-                if(BCrypt.Net.BCrypt.Verify(password, users.password))
+                if(BCrypt.Net.BCrypt.Verify(password, users.Password))
                 {
                     return users;
                 }

@@ -11,16 +11,20 @@ namespace MedBook_RazorPages.Models
         [Key]
         public int Id { get; set; }
 
-        public DateTime AppointmentDate { get; set; }
+        public int PacientId { get; set; }
+        public int MedicalServiceId { get; set; }
+        public string Description { get; set; }
+        public DateTime TimeOfAppointment { get; set; }
+        public TimeSpan AppointmentDuration { get; set; }
+        public Users User { get; set; }
+        public MedicalService MedicalService { get; set; }
 
-        public Provider Provider { get; set; }
-
-        public void Attach(Users? user, Provider? provider)
+        public void Attach(Users? user, MedicalService? medicalService)
         {
             throw new NotImplementedException();
         }
 
-        public void Detach(Users? user, Provider? provider)
+        public void Detach(Users? user, MedicalService? medicalService)
         {
             throw new NotImplementedException();
         }
