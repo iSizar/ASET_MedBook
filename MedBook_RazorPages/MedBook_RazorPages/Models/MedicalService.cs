@@ -17,8 +17,14 @@ namespace MedBook_RazorPages.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string TargetBodySystem { get; set; }
+        public List<Appointment> Appointments { get; set; }
         public TimeSpan DayStartTime { get; set; }
         public TimeSpan DayEndTime { get; set; }
         public TimeSpan AppDefaultMinutes { get; set; }
+
+        public MedicalService()
+        {
+            Appointments = new List<Appointment>();
+        }
     }
 }

@@ -31,12 +31,15 @@ namespace MedBook_Tests
 
             appointment = new Appointment();
             appointment.Description = "casual medical appointment";
+            appointment.TimeOfAppointment = DateTime.Now;
+
+            appointment.Attach(user, provider);
         }
 
         [Fact]
         public void TestAttach()
         {
-            appointment.Attach(user, provider);
+            Initialize();
 
             Assert.True(appointment.User.FirstName == "Prenume");
             Assert.True(appointment.MedicalService.Description == "medical service description");
@@ -47,7 +50,7 @@ namespace MedBook_Tests
         [Fact]
         public void TestCalendarDay()
         {
-            appointment.Attach(user, provider);
+            Initialize();
 
             var calendarDay = CalendarDay.CreateCalendarDay(new List<Appointment>() { appointment });
 
@@ -57,7 +60,7 @@ namespace MedBook_Tests
         [Fact]
         public void TestCalendarWeek()
         {
-            appointment.Attach(user, provider);
+            Initialize();
 
             var calendarWeek = CalendarWeek.CreateCalendarWeek(new List<Appointment>() { appointment });
 
@@ -68,7 +71,7 @@ namespace MedBook_Tests
         [Fact]
         public void TestCalendarMonth()
         {
-            appointment.Attach(user, provider);
+            Initialize();
 
             var calendarMonth = CalendarMonth.CreateCalendarMonth(new List<Appointment> { appointment });
 

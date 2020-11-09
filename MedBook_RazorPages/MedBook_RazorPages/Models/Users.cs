@@ -22,6 +22,11 @@ namespace MedBook_RazorPages.Models
 
         public List<Appointment> Appointments { get; private set; }
 
+        public Users()
+        {
+            Appointments = new List<Appointment>();
+        }
+
         public void OnNotification()
         {
             throw new NotImplementedException();
