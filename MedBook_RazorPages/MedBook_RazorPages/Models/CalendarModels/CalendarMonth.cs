@@ -12,7 +12,15 @@ namespace MedBook_RazorPages.Models.CalendarModels
         private CalendarMonth(List<Appointment> appointments)
         { }
 
+        private CalendarMonth()
+        { }
+
         public CalendarMonth CreateCalendarMonth(int month, int? year)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static CalendarMonth CreateCalendarMonth(List<Appointment> appointments)
         {
             throw new NotImplementedException();
         }

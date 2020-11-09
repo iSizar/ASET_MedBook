@@ -9,6 +9,9 @@ namespace MedBook_RazorPages.Models.CalendarModels
     {
         public CalendarDay[] CalendarDays { get; private set; }
 
+        private CalendarWeek()
+        { }
+
         private CalendarWeek(List<Appointment> appointments)
         { }
 
@@ -18,6 +21,11 @@ namespace MedBook_RazorPages.Models.CalendarModels
         }
 
         public CalendarWeek CreateCalendarWeek(int firstDayOfTheWeek, int month, int year)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static CalendarWeek CreateCalendarWeek(List<Appointment> appointments)
         {
             throw new NotImplementedException();
         }

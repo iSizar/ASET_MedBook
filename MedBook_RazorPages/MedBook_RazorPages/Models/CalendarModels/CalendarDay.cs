@@ -14,6 +14,9 @@ namespace MedBook_RazorPages.Models.CalendarModels
         private CalendarDay(List<Appointment> appointments)
         { }
 
+        private CalendarDay()
+        { }
+
         public CalendarDay CreateCalendarDay(DateTime day)
         {
             throw new NotImplementedException();
@@ -24,5 +27,9 @@ namespace MedBook_RazorPages.Models.CalendarModels
             throw new NotImplementedException();
         }
 
+        public static CalendarDay CreateCalendarDay(List<Appointment> appointments)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
