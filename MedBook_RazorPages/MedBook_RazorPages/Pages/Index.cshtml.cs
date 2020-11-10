@@ -17,6 +17,10 @@ namespace MedBook_RazorPages.Pages
             db = _db;
         }
 
+       
+        public DatabaseContext returnDB() {
+            return db;
+        }
 
         public void OnGet()
         {
@@ -47,7 +51,7 @@ namespace MedBook_RazorPages.Pages
             }
         }
 
-        private Users login(string email, string password)
+        public Users login(string email, string password)
         {
             var users = db.Users.SingleOrDefault(a => a.Email.Equals(email));
             if(users != null)
