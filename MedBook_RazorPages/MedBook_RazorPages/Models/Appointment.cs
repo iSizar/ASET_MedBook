@@ -21,7 +21,11 @@ namespace MedBook_RazorPages.Models
 
         public void Attach(Users? user, MedicalService? medicalService)
         {
-            throw new NotImplementedException();
+            User = user;
+            MedicalService = medicalService;
+
+            user.Appointments.Add(this);
+            medicalService.Appointments.Add(this);
         }
 
         public void Detach(Users? user, MedicalService? medicalService)
