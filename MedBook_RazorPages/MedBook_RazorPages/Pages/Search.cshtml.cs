@@ -14,22 +14,35 @@ namespace MedBook_RazorPages.Pages
     public class SearchModel : PageModel
     {
         private readonly MedBook_RazorPages.Models.DatabaseContext _context;
+        private DBDataAccess dataBase;
 
         [BindProperty]
-        public MedicalService medicalService { get; set; }
+        public List<MedicalService> listToDisplay { get; set; }
+
+        [BindProperty]
+        public List<Location> locations { get; set; }
+
 
         [BindProperty]
         public QuerryDecorator querryDecorator { get; set; }
+        [BindProperty]
+        public MedicalService MedicalService { get; set; }
+
         public SearchModel(MedBook_RazorPages.Models.DatabaseContext context)
         {
             _context = context;
+            dataBase = new DBDataAccess(context);
+            querryDecorator = new QuerryDecorator();
+        }
+        public void OnGet()
+        {
+            locations = dataBase.getLocation();
+            listToDisplay = dataBase.getMedicalService();
         }
 
-        public IList<MedicalService> MedicalService { get;set; }
-
-        public async Task OnGetAsync()
+        public void OnPost()
         {
-            MedicalService = await _context.MedicalService.ToListAsync();
+            listToDisplay = dataBase.getMedicalService(querryDecorator);
         }
     }
 }

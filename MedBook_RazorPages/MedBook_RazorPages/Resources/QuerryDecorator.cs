@@ -14,6 +14,8 @@ namespace MedBook_RazorPages.Resources
         public string mCity { set; get; }
         public DateTime mLeftDateInterval { set; get; }
         public DateTime mRightDateInterval { set; get; }
+        public UInt32 mLeftRating{ set; get; }
+        public UInt32 mRightRating { set; get; }
 
         public QuerryDecorator()
         {

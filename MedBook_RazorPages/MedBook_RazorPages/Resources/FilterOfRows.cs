@@ -24,7 +24,7 @@ namespace MedBook_RazorPages.Resources
             foreach (MedicalService medServ in medicalService)
             {
                 bool isValid = true;
-                Location loc = locations.Where(loc => loc.id == medServ.LocationId).Single();
+                Location loc = locations.Where(loc => loc.id == medServ.Location.id).Single();
                 if (querryDecorator.mCity != default(string) && !loc.City.Equals(querryDecorator.mCity))
                 {  
                         isValid = false;
