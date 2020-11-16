@@ -28,7 +28,6 @@ namespace MedBook_RazorPages.Pages
             db.Users.Add(users);
             db.SaveChanges();
             return RedirectToPage("index");
-
         }
     }
 }
