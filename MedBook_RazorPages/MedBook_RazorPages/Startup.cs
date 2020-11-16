@@ -31,10 +31,11 @@ namespace MedBook_RazorPages
             services.AddRazorPages();
             services.AddMvc(option => option.EnableEndpointRouting = false);
 
-            var installers = typeof(Startup).Assembly.ExportedTypes.Where(x =>
-            typeof(IInstaller).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract).Select(Activator.CreateInstance).Cast<IInstaller>().ToList();
+            /*   var installers = typeof(Startup).Assembly.ExportedTypes.Where(x =>
+               typeof(IInstaller).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract).Select(Activator.CreateInstance).Cast<IInstaller>().ToList();
 
-            installers.ForEach(Installer => Installer.InstallService(services, Configuration));
+               installers.ForEach(Installer => Installer.InstallService(services, Configuration));*/
+            services.AddAuthentication().AddFacebook();
 
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<DatabaseContext>(opstions => opstions.UseSqlServer(connection));

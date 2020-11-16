@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using MedBook_RazorPages.Models;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
+using MedBook_RazorPages.Services;
+using Microsoft.Extensions.Logging;
 
 namespace MedBook_RazorPages.Pages
 {
@@ -10,11 +12,14 @@ namespace MedBook_RazorPages.Pages
     {
         private DatabaseContext db;
 
+        private readonly ILogger<IndexModel> _logger;
+
         public string Msg;
 
-        public IndexModel(DatabaseContext _db)
+        public IndexModel(DatabaseContext _db, ILogger<IndexModel> logger)
         {
             db = _db;
+            _logger = logger;
         }
 
        
@@ -25,6 +30,7 @@ namespace MedBook_RazorPages.Pages
         public void OnGet()
         {
             users = new Users();
+            _logger.LogInformation("Here we are getting a get request from IndexModel");
         }
          
         public IActionResult OnGetLogout()
@@ -53,7 +59,7 @@ namespace MedBook_RazorPages.Pages
 
         public Users login(string email, string password)
         {
-            var users = db.Users.SingleOrDefault(a => a.Email.Equals(email));
+             var users = db.Users.SingleOrDefault(a => a.Email.Equals(email));
             if(users != null)
             {
                 if(BCrypt.Net.BCrypt.Verify(password, users.Password))
