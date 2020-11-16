@@ -1,3 +1,4 @@
+using MedBook_RazorPages.Installer;
 using MedBook_RazorPages.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Linq;
 
 namespace MedBook_RazorPages
 {
@@ -23,12 +26,15 @@ namespace MedBook_RazorPages
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
+        { 
             services.AddSession();
             services.AddRazorPages();
             services.AddMvc(option => option.EnableEndpointRouting = false);
 
-            
+            var installers = typeof(Startup).Assembly.ExportedTypes.Where(x =>
+            typeof(IInstaller).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract).Select(Activator.CreateInstance).Cast<IInstaller>().ToList();
+
+            installers.ForEach(Installer => Installer.InstallService(services, Configuration));
 
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<DatabaseContext>(opstions => opstions.UseSqlServer(connection));
