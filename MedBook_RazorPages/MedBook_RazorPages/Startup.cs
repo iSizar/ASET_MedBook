@@ -58,6 +58,7 @@ namespace MedBook_RazorPages
                 options.UseRedis(config =>
                 {
                     config.DBConfig.Endpoints.Add(new EasyCaching.Core.Configurations.ServerEndPoint("127.0.0.1", 6379));
+                    config.DBConfig.AllowAdmin = true;
                 }, "redis1");
             });
             services.AddMvc(option => option.EnableEndpointRouting = false);

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MedBook_RazorPages.Models
 {
+    [Serializable]
     [Table("Users")]
     public class Users
     {
