@@ -27,13 +27,47 @@
                 <tr>
                     <td>&nbsp;</td>
                     <td>
-                        <input type="submit" value="Login"/>
+                        <input type="submit" value="Login" />
                         <br />
                         <a asp-page="signup">Sign Up</a>
                     </td>
                 </tr>
             </table>
+            <fb:login-button scope="public_profile,email"
+                             onlogin="checkLoginState();">
+            </fb:login-button>
+            <div id="authstatus"></div>
         </form>
+        @section scripts
+        {
+            <script>
+            window.fbAsyncInit = function() {
+            FB.init({
+                appId: '652368005385548',
+                cookie     : true,
+                xfbml      : true,
+                version: 'v9.0'
+            });
+
+            FB.AppEvents.logPageView();
+
+            };
+
+            (function(d, s, id){
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+            function checkLoginState() {
+                FB.getLoginStatus(function (response) {
+                    $("#authstatus").html("<code>" + JSON.stringify(response, null, 2) + "</code>");
+                });
+            }
+            </script>
+        }
     </body>
 </html>
 @*<div class="text-center">
