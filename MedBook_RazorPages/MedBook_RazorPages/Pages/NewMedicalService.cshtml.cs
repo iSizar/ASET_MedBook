@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MedBook_RazorPages.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace MedBook_RazorPages.Pages
 {
@@ -13,9 +14,17 @@ namespace MedBook_RazorPages.Pages
     {
         private readonly DatabaseContext _context;
 
+        public Users user { get; set; }
+
+        [BindProperty]
+        public List<Location> locations { get; set; }
+
         public NewMedicalServiceModel(DatabaseContext context)
         {
             _context = context;
+            var email = HttpContext.Session.GetString("email");
+            user = context.Users.SingleOrDefault(a => a.Email.Equals(email));
+            locations = context.Location.ToList();
         }
 
         public IActionResult OnGet()
