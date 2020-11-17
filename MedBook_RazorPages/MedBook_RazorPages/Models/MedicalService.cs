@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace MedBook_RazorPages.Models
 {
+    [Serializable]
     [Table("MedicalService")]
     public class MedicalService
     {
         [Key]
         public int id { get; set; }
-        public int UserId { get; set; }
-        public int LocationId { get; set; }
+        public Users User  { get; set; }
+        public Location Location { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string TargetBodySystem { get; set; }
@@ -21,10 +22,5 @@ namespace MedBook_RazorPages.Models
         public TimeSpan DayStartTime { get; set; }
         public TimeSpan DayEndTime { get; set; }
         public TimeSpan AppDefaultMinutes { get; set; }
-
-        public MedicalService()
-        {
-            Appointments = new List<Appointment>();
-        }
     }
 }
