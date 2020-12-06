@@ -38,21 +38,6 @@ namespace MedBook_RazorPages.Pages
         public async Task<IActionResult> OnPost()
         {
 
-           /* var user = new IdentityUser
-            {
-                UserName = users.Email,
-            };
-
-            var result = await _userManager.CreateAsync(user, users.Password);
-
-            if(result.Succeeded)
-            {
-                var signInResult = await _signInManager.PasswordSignInAsync(user, users.Password, false, false);
-
-                if (signInResult.Succeeded) { }
-            }   */ 
-
-
             _logger.LogInformation("Adaugarea informatiilor in baza de date");
             Console.WriteLine(users.Email);
             _logger.LogInformation("Se cripteaza parola");
@@ -77,7 +62,7 @@ namespace MedBook_RazorPages.Pages
         public void SendVerificationLinkEmail(string emailID, string activationCode, string emailFor = "VerifyAccount")
         {
             var vefifyUrl = "/User/" + emailFor + "/" + activationCode;
-            var link = /*Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, vefifyUrl);*/ " link de verificare";
+            //var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, vefifyUrl);
 
 
             var fromEmail = new MailAddress("dragosaioane1997@gmail.com", "Validation User");
