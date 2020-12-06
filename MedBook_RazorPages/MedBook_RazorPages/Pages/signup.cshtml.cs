@@ -62,7 +62,7 @@ namespace MedBook_RazorPages.Pages
         public void SendVerificationLinkEmail(string emailID, string activationCode, string emailFor = "VerifyAccount")
         {
             var vefifyUrl = "/User/" + emailFor + "/" + activationCode;
-            //var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, vefifyUrl);
+            var link = "Account created";
 
 
             var fromEmail = new MailAddress("dragosaioane1997@gmail.com", "Validation User");
