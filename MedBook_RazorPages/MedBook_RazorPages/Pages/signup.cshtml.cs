@@ -7,6 +7,8 @@ using NETCore.MailKit.Core;
 using System;
 using System.Net;
 using System.Net.Mail;
+using System.Web;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace MedBook_RazorPages.Pages
@@ -38,31 +40,36 @@ namespace MedBook_RazorPages.Pages
         public async Task<IActionResult> OnPost()
         {
 
-            _logger.LogInformation("Adaugarea informatiilor in baza de date");
-            Console.WriteLine(users.Email);
-            _logger.LogInformation("Se cripteaza parola");
+            if (users.FirstName != "" && users.LastName != ""  && users.Email != "" && (users.UserType == 1 || users.UserType == 2)) {
+                _logger.LogInformation("Adaugarea informatiilor in baza de date");
+                Console.WriteLine(users.Email);
+                _logger.LogInformation("Se cripteaza parola");
 
 
-            users.Password = BCrypt.Net.BCrypt.HashPassword(users.Password);
-            _logger.LogInformation("Se adauga informatiile culese din pagina");
+                users.Password = BCrypt.Net.BCrypt.HashPassword(users.Password);
+                _logger.LogInformation("Se adauga informatiile culese din pagina");
 
-            db.Users.Add(users);
-            db.SaveChanges();
+                db.Users.Add(users);
+                db.SaveChanges();
 
-            var ActivationCode = Guid.NewGuid();
+                var ActivationCode = Guid.NewGuid();
 
-            SendVerificationLinkEmail(users.Email, ActivationCode.ToString());
+                SendVerificationLinkEmail(users.Email, ActivationCode.ToString());
 
-            _logger.LogInformation("Informatiile au fost salvate si se face redirect catre pagina index");
-            return RedirectToPage("index");
+                _logger.LogInformation("Informatiile au fost salvate si se face redirect catre pagina index");
+                return RedirectToPage("index");
+            }
+            return RedirectToPage("signup");
+            
 
         }
 
         [NonAction]
+
         public void SendVerificationLinkEmail(string emailID, string activationCode, string emailFor = "VerifyAccount")
         {
             var vefifyUrl = "/User/" + emailFor + "/" + activationCode;
-            var link = "Account created";
+            var link = "Account created"; 
 
 
             var fromEmail = new MailAddress("dragosaioane1997@gmail.com", "Validation User");
