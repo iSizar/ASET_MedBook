@@ -12,6 +12,16 @@ using EasyCaching.Core;
 
 namespace MedBook_RazorPages.Pages
 {
+   /* public aspect MyAspect
+    {
+        pointcut SumPointCut void MainClass.Sum(int a, int b);
+
+        before SumPointCut(int a, int b)
+      {
+            Console.WriteLine(
+               "The sum of numbers {0} and {1} will be calculated.", a, b);
+        }
+    }*/
     public class SearchModel : PageModel
     {
         private readonly MedBook_RazorPages.Models.DatabaseContext _context;
@@ -24,6 +34,8 @@ namespace MedBook_RazorPages.Pages
 
         [BindProperty]
         public List<Location> locations { get; set; }
+        [BindProperty]
+        public List<MedicalService> allTheMedServices { get; set; }
 
 
         [BindProperty]
@@ -40,6 +52,7 @@ namespace MedBook_RazorPages.Pages
             this._easyCachingFactory = easyCachingFactory;
             this._easyCachingProvider = this._easyCachingFactory.GetCachingProvider("redis1");
             querryDecorator = new QuerryDecorator();
+            allTheMedServices= dataBase.getMedicalService();
         }
         public void OnGet()
         {

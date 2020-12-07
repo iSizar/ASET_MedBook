@@ -10,7 +10,7 @@
         <input type="text" asp-for="@Model.querryDecorator.mDescription">
 
         <select id="System" class="custom-select custom-select-lg mb-3" asp-for="@Model.querryDecorator.mTargetBodySystem">
-            @foreach (var item in Model.listToDisplay)
+            @foreach (var item in Model.allTheMedServices)
             {
                  <option class="dropdown-item" href="/SearchPage">@Html.DisplayFor(modelItem => item.TargetBodySystem)</option>
             }
