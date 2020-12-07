@@ -12,6 +12,11 @@ namespace MedBook_RazorPages.Pages
     {
         private readonly ILogger<WelcomeModel> _logger;
 
+        public WelcomeModel(ILogger<WelcomeModel> logger)
+        {
+            _logger = logger;
+        }
+
         public void OnGet()
         {
             _logger.LogInformation("Am ajuns in ultima pagina pana acum");

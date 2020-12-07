@@ -2,6 +2,7 @@ using MedBook_RazorPages.Installer;
 using MedBook_RazorPages.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -61,8 +62,12 @@ namespace MedBook_RazorPages
                     config.DBConfig.AllowAdmin = true;
                 }, "redis1");
             });
-            services.AddMvc(option => option.EnableEndpointRouting = false);
 
+            services.AddMvc(option => option.EnableEndpointRouting = false);
+        /*    services.AddIdentity<Users, IdentityRole>(config =>
+            {
+                config.SignIn.RequireConfirmedEmail = true;
+            }).AddDefaultTokenProviders();*/
             /*   var installers = typeof(Startup).Assembly.ExportedTypes.Where(x =>
                typeof(IInstaller).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract).Select(Activator.CreateInstance).Cast<IInstaller>().ToList();
 
