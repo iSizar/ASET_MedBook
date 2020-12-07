@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MedBook_RazorPages.Models
 {
+    [Serializable]
     [Table("Users")]
     public class Users
     {
@@ -21,6 +22,11 @@ namespace MedBook_RazorPages.Models
         public int UserType { get; set; }
 
         public List<Appointment> Appointments { get; private set; }
+
+        public Users()
+        {
+            Appointments = new List<Appointment>();
+        }
 
         public void OnNotification()
         {

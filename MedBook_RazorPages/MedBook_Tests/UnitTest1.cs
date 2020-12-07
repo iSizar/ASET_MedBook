@@ -49,11 +49,11 @@ namespace MedBook_Tests
             MedicalService m1 = new MedicalService();
             m1.Description = "Radiologie dentara";
             m1.TargetBodySystem = "sistemul osos";
-            m1.LocationId = 1;
+            m1.Location = location1;
             
             MedicalService m2 = new MedicalService();
             m2.Description = "Analiza sangelui";
-            m2.LocationId = 2;
+            m2.Location = location2;
             m2.TargetBodySystem = "sistemul circulator";
 
             locations.Add(location1);
@@ -89,7 +89,7 @@ namespace MedBook_Tests
             foreach(var medServ in list)
             {
                 output.WriteLine("This is output from {0}", medServ.Description);
-                Assert.Equal("Iasi", locations.Where(l => l.id == medServ.LocationId).Single().City);
+                Assert.Equal("Iasi", locations.Where(l => l.id == medServ.Location.id).Single().City);
             }
             TearDown();
 

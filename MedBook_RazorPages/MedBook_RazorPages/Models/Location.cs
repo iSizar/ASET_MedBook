@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MedBook_RazorPages.Models
 {
+    [Serializable]
     [Table("Location")]
     public class Location
     {

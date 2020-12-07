@@ -112,7 +112,16 @@ namespace MedBook_RazorPages.Pages
                 IsBodyHtml = true
             })
 
-                smtp.Send(message);
+            smtp.Send(message);
+            _logger.LogInformation("Adaugarea informatiilor in baza de date");
+            Console.WriteLine(users.Email);
+            _logger.LogInformation("Se cripteaza parola");
+            users.Password = BCrypt.Net.BCrypt.HashPassword(users.Password);
+            _logger.LogInformation("Se adauga informatiile culese din pagina");
+            db.Users.Add(users);
+            db.SaveChanges();
+            _logger.LogInformation("Informatiile au fost salvate si se face redirect catre pagina index");
+            return RedirectToPage("index");
         }
 
     }

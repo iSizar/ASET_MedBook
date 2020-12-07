@@ -1,0 +1,13 @@
+﻿@page "{id:int}"
+@model MedBook_RazorPages.Pages.MedicalServiceModel
+@{
+    ViewData["Title"] = "MedicalService";
+}
+
+<h1>MedicalService: @Model.medicalService.Name</h1>
+<br />
+
+<span>Appointments can be booked daily from @Model.medicalService.DayStartTime to @Model.medicalService.DayEndTime</span>
+<br />
+<a class="btn btn-success" asp-page="NewAppointment">Make new appointment</a>
+
