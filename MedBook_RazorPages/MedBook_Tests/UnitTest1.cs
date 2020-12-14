@@ -106,11 +106,14 @@ namespace MedBook_Tests
             reviews.Add(rev1);
             reviews.Add(rev2);
 
-            dataBaseMock = new DataBaseMock();
+            List<Users> users = new List<Users>();
+
+           dataBaseMock = new DataBaseMock();
             
             dataBaseMock.locations = locations;
             dataBaseMock.medicalServices = services;
             dataBaseMock.reviews = reviews;
+            dataBaseMock.users = users;
             filterOfRows = new FilterOfRows((IDataAccess)dataBaseMock);
         }
 
@@ -127,7 +130,10 @@ namespace MedBook_Tests
         {
             TearUp();
             QuerryDecorator q = new QuerryDecorator();
+            Assert.NotEmpty(filterOfRows.getMedicalService());
             Assert.NotEmpty(filterOfRows.getLocation());
+            Assert.NotEmpty(filterOfRows.getReview());
+            Assert.Empty(filterOfRows.getUsers());
             TearDown();
         }
 
