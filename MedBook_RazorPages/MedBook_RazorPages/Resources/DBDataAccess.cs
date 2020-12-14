@@ -33,43 +33,8 @@ namespace MedBook_RazorPages.Resources
             foreach (MedicalService medServ in _db.MedicalService.ToList())
             {
                 _db.Entry(medServ).Reference(m => m.Specialization).Load();
-                retList.Add(medServ);
-            }
-            return retList;
-        }
-        public List<MedicalService> getMedicalService(QuerryDecorator qd)
-        {
-            List<MedicalService> retList = new List<MedicalService>();
-            retList.Clear();
-            bool isValid;
-
-            foreach (MedicalService medServ in _db.MedicalService.ToList().ToList())
-            {
-                isValid = true;
                 _db.Entry(medServ).Reference(m => m.Location).Load();
-
-                if (qd.mDescription != default && !medServ.Description.ToLower().Contains(qd.mDescription.ToLower()))
-                {
-                    isValid = false;
-                }
-                if (qd.mSpecialization != default && !medServ.Specialization.Description.Contains(qd.mSpecialization))
-                {
-                    isValid = false;
-                }
-                if (qd.mCity != default && medServ.Location.City.ToLower().Contains(qd.mCity.ToLower()))
-                {
-                    isValid = false;
-                }
-                if (qd.mMinRating != default &&
-                    _db.Review.Where(r => r.MedicalServiceId == medServ.id).Count() > 0 &&
-                    qd.mMinRating > _db.Review.Where(r => r.MedicalServiceId == medServ.id).Average(r => r.Rating))
-                {
-                    isValid = false;
-                }
-                if (isValid)
-                {
-                    retList.Add(medServ);
-                }
+                retList.Add(medServ);
             }
             return retList;
         }
