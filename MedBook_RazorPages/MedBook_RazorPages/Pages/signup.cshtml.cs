@@ -122,7 +122,7 @@ namespace MedBook_RazorPages.Pages
             db.Users.Add(users);
             db.SaveChanges();
             _logger.LogInformation("Informatiile au fost salvate si se face redirect catre pagina index");
-            // return RedirectToPage("index");
+            return RedirectToPage("index");
         }
 
     }
