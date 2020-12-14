@@ -4,10 +4,44 @@
     ViewData["Title"] = "MedicalService";
 }
 
+@section Scripts
+{
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.4.0/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.4.0/main.js"></script>
+    <script>
+        let calendarEvents = [];
+        @foreach (var appointment in Model.medicalService.Appointments)
+        {
+            <text>
+            let newCalendarEvent = {
+                start: @appointment.TimeOfAppointment.Date,
+                end: @((appointment.TimeOfAppointment + appointment.AppointmentDuration).Date),
+                startTime: @appointment.TimeOfAppointment.TimeOfDay,
+                endTime: @((appointment.TimeOfAppointment + appointment.AppointmentDuration).TimeOfDay),
+                editable: false
+            }
+            calendarEvents.push(newCalendarEvent)
+            </text>
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: calendarEvents
+            });
+        calendar.render();
+        });
+    </script>
+}
+
 <h1>MedicalService: @Model.medicalService.Name</h1>
 <br />
 
 <span>Appointments can be booked daily from @Model.medicalService.DayStartTime to @Model.medicalService.DayEndTime</span>
 <br />
+<div id="calendar">
+
+</div>
+
 <a class="btn btn-success" asp-page="NewAppointment">Make new appointment</a>
 
