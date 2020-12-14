@@ -24,7 +24,7 @@ namespace MedBook_RazorPages.Pages
     }*/
     public class SearchModel : PageModel
     {
-        private readonly MedBook_RazorPages.Models.DatabaseContext _context;
+        private readonly DatabaseContext _context;
         private IEasyCachingProvider _easyCachingProvider;
         private IEasyCachingProviderFactory _easyCachingFactory;
         private DBDataAccess dataBase;
@@ -52,28 +52,20 @@ namespace MedBook_RazorPages.Pages
             this._easyCachingFactory = easyCachingFactory;
             this._easyCachingProvider = this._easyCachingFactory.GetCachingProvider("redis1");
             querryDecorator = new QuerryDecorator();
-            allTheMedServices= dataBase.getMedicalService();
+            allTheMedServices = dataBase.getMedicalService();
         }
         public void OnGet()
         {
             locations = dataBase.getLocation();
-            var chacedList = this._easyCachingProvider.Get<List<MedicalService>>("all");
-            if (chacedList.IsNull)
+            var chacedList = this._easyCachingProvider.Get<List<MedicalService>>("filtred");
+            if (!chacedList.IsNull)
             {
-                listToDisplay = dataBase.getMedicalService();
-                this._easyCachingProvider.Set("all", listToDisplay, TimeSpan.FromDays(10));
+                listToDisplay = chacedList.Value;
+                this._easyCachingProvider.Remove("filtred");
             }
             else
             {
-                var chacedList2 = this._easyCachingProvider.Get<List<MedicalService>>("filtred");
-                if (!chacedList2.IsNull)
-                {
-                    listToDisplay = chacedList2.Value;
-                }
-                else
-                {
-                    listToDisplay = dataBase.getMedicalService();
-                }
+                listToDisplay = dataBase.getMedicalService();
             }
         }
 

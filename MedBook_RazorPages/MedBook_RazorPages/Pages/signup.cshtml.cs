@@ -37,10 +37,11 @@ namespace MedBook_RazorPages.Pages
             _logger.LogInformation("Se face request de tip get");
         }
 
-        public async Task<IActionResult> OnPost()
+        public IActionResult OnPost()
         {
 
-            if (users.FirstName != "" && users.LastName != ""  && users.Email != "" && (users.UserType == 1 || users.UserType == 2)) {
+            if (users.FirstName != "" && users.LastName != "" && users.Email != "" && (users.UserType == 1 || users.UserType == 2))
+            {
                 _logger.LogInformation("Adaugarea informatiilor in baza de date");
                 Console.WriteLine(users.Email);
                 _logger.LogInformation("Se cripteaza parola");
@@ -60,7 +61,7 @@ namespace MedBook_RazorPages.Pages
                 return RedirectToPage("index");
             }
             return RedirectToPage("signup");
-            
+
 
         }
 
@@ -111,7 +112,7 @@ namespace MedBook_RazorPages.Pages
                 Body = body,
                 IsBodyHtml = true
             })
-
+             
             smtp.Send(message);
             _logger.LogInformation("Adaugarea informatiilor in baza de date");
             Console.WriteLine(users.Email);
@@ -121,7 +122,7 @@ namespace MedBook_RazorPages.Pages
             db.Users.Add(users);
             db.SaveChanges();
             _logger.LogInformation("Informatiile au fost salvate si se face redirect catre pagina index");
-            return RedirectToPage("index");
+            // return RedirectToPage("index");
         }
 
     }

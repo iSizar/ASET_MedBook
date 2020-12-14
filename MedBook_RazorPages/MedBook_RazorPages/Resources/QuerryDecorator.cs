@@ -10,12 +10,11 @@ namespace MedBook_RazorPages.Resources
     public class QuerryDecorator
     {
         public string mDescription{ set; get; }
-        public string mTargetBodySystem { set; get; }
+        public string mSpecialization { set; get; }
         public string mCity { set; get; }
         public DateTime mLeftDateInterval { set; get; }
         public DateTime mRightDateInterval { set; get; }
-        public UInt32 mLeftRating{ set; get; }
-        public UInt32 mRightRating { set; get; }
+        public UInt32 mMinRating{ set; get; }
 
         public QuerryDecorator()
         {

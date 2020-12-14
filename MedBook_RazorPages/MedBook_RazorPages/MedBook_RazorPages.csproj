@@ -28,4 +28,12 @@
     <PackageReference Include="NETCore.MailKit" Version="2.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\background.jpg" />
+  </ItemGroup>
+
 </Project>

@@ -6,16 +6,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MedBook_RazorPages.Models;
+using EasyCaching.Core;
+using MedBook_RazorPages.Resources;
 
 namespace MedBook_RazorPages.Pages
 {
     public class ReportsModel : PageModel
     {
         private readonly MedBook_RazorPages.Models.DatabaseContext _context;
-
-        public ReportsModel(MedBook_RazorPages.Models.DatabaseContext context)
+        private IEasyCachingProvider _easyCachingProvider;
+        private IEasyCachingProviderFactory _easyCachingFactory;
+        private DBDataAccess dataBase;
+        public ReportsModel(MedBook_RazorPages.Models.DatabaseContext context, IEasyCachingProviderFactory easyCachingFactory)
         {
-            _context = context;
+            /* DataBase */
+            this._context = context;
+            this.dataBase = new DBDataAccess(context);
+            /* Chaching */
+            this._easyCachingFactory = easyCachingFactory;
+            this._easyCachingProvider = this._easyCachingFactory.GetCachingProvider("redis1");
         }
 
         public IActionResult OnGet()

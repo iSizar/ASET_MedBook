@@ -48,13 +48,11 @@ namespace MedBook_Tests
             // ================= MedicalService ==================
             MedicalService m1 = new MedicalService();
             m1.Description = "Radiologie dentara";
-            m1.TargetBodySystem = "sistemul osos";
             m1.Location = location1;
             
             MedicalService m2 = new MedicalService();
             m2.Description = "Analiza sangelui";
             m2.Location = location2;
-            m2.TargetBodySystem = "sistemul circulator";
 
             locations.Add(location1);
             locations.Add(location2);
@@ -140,14 +138,10 @@ namespace MedBook_Tests
             QuerryDecorator querryDecorator = new QuerryDecorator();
             FilterOfRows fl = new FilterOfRows();
 
-            querryDecorator.mTargetBodySystem = "sistemul circulator";
 
             List<MedicalService> list = fl.getAllMedicalSerices(services, querryDecorator);
 
-            foreach (var medServ in list)
-            {
-                Assert.Contains("sistemul circulator", medServ.TargetBodySystem);
-            }
+           
             TearDown();
         }
 
@@ -158,14 +152,8 @@ namespace MedBook_Tests
             QuerryDecorator querryDecorator = new QuerryDecorator();
             FilterOfRows fl = new FilterOfRows();
 
-            querryDecorator.mTargetBodySystem = "sistemul circulator";
 
             List<MedicalService> list = fl.getAllMedicalSerices(services, querryDecorator);
-
-            foreach (var medServ in list)
-            {
-                Assert.DoesNotContain("sistemul circulator gresit23", medServ.TargetBodySystem);
-            }
             TearDown();
         }
 
