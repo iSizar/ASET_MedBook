@@ -117,6 +117,7 @@ namespace MedBook_RazorPages.Pages
             })
 
                 smtp.Send(message);
+            return 1;
         }
 
     }
