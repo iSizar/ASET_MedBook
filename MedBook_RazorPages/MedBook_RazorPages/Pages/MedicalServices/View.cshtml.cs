@@ -15,18 +15,22 @@ namespace MedBook_RazorPages.Pages
 
         [BindProperty]
         public MedicalService medicalService { get; set; }
+        
+        [BindProperty]
+        public List<Appointment> appointments { get; set; }
 
         public MedicalServiceModel(DatabaseContext _db)
         {
             db = _db;
-
         }
 
         //[Route("/MedicalService/{id:int}")]
-        public void OnGet(int id)
+        public IActionResult OnGet(int id)
         {
             medicalServiceId = id;
             medicalService = db.MedicalService.SingleOrDefault(x => x.id == id);
+            appointments = db.Appointment.Where(a => a.MedicalServiceId == id).ToList();
+            return Page();
         }
     }
 }
