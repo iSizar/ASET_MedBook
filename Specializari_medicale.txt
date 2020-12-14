@@ -1,64 +1,64 @@
-Alergologie şi imunologie clinică 	
-Anestezie şi terapie intensivă  
-Boli infecţioase 	
-Cardiologie 	
-Cardiologie pediatrică* 	
-Dermatovenerologie 	
-Diabet zaharat, nutriţie şi boli metabolice* 	
-Endocrinologie 	
-Expertiza medicală a capacităţii de muncă* 	
-Farmacologie clinică 	
-Gastroenterologie 	
-Gastroenterologie pediatrică* 	
-Genetică medicală 	
-Geriatrie şi gerontologie 	
-Hematologie 	
-Medicină de familie 	
-Medicină de urgenţă 	
-Medicină internă 	
-Medicină fizică şi de reabilitare 	
-Medicina muncii 	
-Medicină sportivă** 	
-Nefrologie 	
-Nefrologie pediatrică* 	
-Neonatologie* 	
-Neurologie 	
-Neurologie pediatrică* 	
-Oncologie medicală 	
-Oncologie şi hematologie pediatrică* 	
-Pediatrie 	
-Pneumologie 	
-Pneumologie pediatrică*
-Psihiatrie
-Psihiatrie pediatrică
-Radioterapie
-Reumatologie
-Chirurgie cardiovasculară**
-Chirurgie generală
-Chirurgie orală şi maxilo-facială***
-Chirurgie pediatrică
-Chirurgie plastică, estetică şi microchirurgie reconstructivă
-Chirurgie toracică
-Chirurgie vasculară
-Neurochirurgie
-Obstetrică-ginecologie
-Oftalmologie
-Ortopedie pediatrică*
-Ortopedie şi traumatologie
-Otorinolaringologie
-Urologie
-Anatomie palogică
-Epidemiolog*
-Igienă*
-Medicină de laborator
-Medicină legală*
-Medicină nucleară
-Microbiologie medicală*
-Radiologie-imagistică medicală 
-Sănătate publică şi management
-Chirurgie dento-alveolară
-Ortodonţie şi ortopedie dento-facială
-Endodonţie*	
-Parodontologie
-Pedodonţie*
-Protetică dentară*
+insert Specialization(Description) Values('Alergologie şi imunologie clinică');
+insert Specialization(Description) Values('Anestezie şi terapie intensivă');
+insert Specialization(Description) Values('Boli infecţioase');
+insert Specialization(Description) Values('Cardiologie');
+insert Specialization(Description) Values('Cardiologie pediatrică');
+insert Specialization(Description) Values('Dermatovenerologie');
+insert Specialization(Description) Values('Diabet zaharat, nutriţie şi boli metabolice');
+insert Specialization(Description) Values('Endocrinologie');
+insert Specialization(Description) Values('Expertiza medicală a capacităţii de muncă');
+insert Specialization(Description) Values('Farmacologie clinică');
+insert Specialization(Description) Values('Gastroenterologie');
+insert Specialization(Description) Values('Gastroenterologie pediatrică');
+insert Specialization(Description) Values('Genetică medicală');
+insert Specialization(Description) Values('Geriatrie şi gerontologie');
+insert Specialization(Description) Values('Hematologie');
+insert Specialization(Description) Values('Medicină de familie');
+insert Specialization(Description) Values('Medicină de urgenţă');
+insert Specialization(Description) Values('Medicină internă');
+insert Specialization(Description) Values('Medicină fizică şi de reabilitare');
+insert Specialization(Description) Values('Medicina muncii');
+insert Specialization(Description) Values('Medicină sportivă');
+insert Specialization(Description) Values('Nefrologie');
+insert Specialization(Description) Values('Nefrologie pediatrică');
+insert Specialization(Description) Values('Neonatologie');
+insert Specialization(Description) Values('Neurologie');
+insert Specialization(Description) Values('Neurologie pediatrică');
+insert Specialization(Description) Values('Oncologie medicală');
+insert Specialization(Description) Values('Oncologie şi hematologie pediatrică');
+insert Specialization(Description) Values('Pediatrie');
+insert Specialization(Description) Values('Pneumologie');
+insert Specialization(Description) Values('Pneumologie pediatrică');
+insert Specialization(Description) Values('Psihiatrie');
+insert Specialization(Description) Values('Psihiatrie pediatrică');
+insert Specialization(Description) Values('Radioterapie');
+insert Specialization(Description) Values('Reumatologie');
+insert Specialization(Description) Values('Chirurgie cardiovasculară');
+insert Specialization(Description) Values('Chirurgie generală');
+insert Specialization(Description) Values('Chirurgie orală şi maxilo-facială');
+insert Specialization(Description) Values('Chirurgie pediatrică');
+insert Specialization(Description) Values('Chirurgie plastică, estetică şi microchirurgie reconstructivă');
+insert Specialization(Description) Values('Chirurgie toracică');
+insert Specialization(Description) Values('Chirurgie vasculară');
+insert Specialization(Description) Values('Neurochirurgie');
+insert Specialization(Description) Values('Obstetrică-ginecologie');
+insert Specialization(Description) Values('Oftalmologie');
+insert Specialization(Description) Values('Ortopedie pediatrică');
+insert Specialization(Description) Values('Ortopedie şi traumatologie');
+insert Specialization(Description) Values('Otorinolaringologie');
+insert Specialization(Description) Values('Urologie');
+insert Specialization(Description) Values('Anatomie palogică');
+insert Specialization(Description) Values('Epidemiolog');
+insert Specialization(Description) Values('Igienă');
+insert Specialization(Description) Values('Medicină de laborator');
+insert Specialization(Description) Values('Medicină legală');
+insert Specialization(Description) Values('Medicină nucleară');
+insert Specialization(Description) Values('Microbiologie medicală');
+insert Specialization(Description) Values('Radiologie-imagistică medicală');
+insert Specialization(Description) Values('Sănătate publică şi management');
+insert Specialization(Description) Values('Chirurgie dento-alveolară');
+insert Specialization(Description) Values('Ortodonţie şi ortopedie dento-facială');
+insert Specialization(Description) Values('Endodonţie');
+insert Specialization(Description) Values('Parodontologie');
+insert Specialization(Description) Values('Pedodonţie');
+insert Specialization(Description) Values('Protetică dentară');

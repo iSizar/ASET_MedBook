@@ -4,85 +4,128 @@
 @{
     ViewData["Title"] = "Search";
 }
+<!-- Font Awesome Icon Library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    .checked {
+        color: orange;
+    }
 
-<form class="was-validated" method="post">  
-    <div class="nav nav-pills nav-fill">
-        <input type="text" asp-for="@Model.querryDecorator.mDescription">
+    #container {
+        width: 100%;
+        height: 100%;
+        min-width: 30vw;
+        min-height: 40vw;
+        background: #ffffff;
+    }
 
-        <select id="System" class="custom-select custom-select-lg mb-3" asp-for="@Model.querryDecorator.mTargetBodySystem">
-            @foreach (var item in Model.allTheMedServices)
-            {
-                 <option class="dropdown-item" href="/SearchPage">@Html.DisplayFor(modelItem => item.TargetBodySystem)</option>
-            }
-        </select>
+    .column {
+        height: auto;
+        float: left;
+        overflow:auto;
+    }
 
-        <select id="Location" class="custom-select custom-select-lg mb-3" asp-for="@Model.querryDecorator.mCity">
-            @foreach (var item in Model.locations)
-            {
-                <option class="dropdown-item" href="/SearchPage">@Html.DisplayFor(modelItem => item.City)</option>
-            }
-        </select>
+    #left {
+        margin-left: 0px;
+        width: 20%;
+        height:100%;
+    }
 
-        <label for="customRange3">Min rating</label>
-        <input id="RaitingMin" type="range" class="custom-range" min="0" max="5" step="1" asp-for="@Model.querryDecorator.mLeftRating">
-        <label for="customRange3">Max rating</label>
-        <input id="RaitingMax" type="range" class="custom-range" min="0" max="5" step="1" asp-for="@Model.querryDecorator.mRightRating">
+    #right {
+        margin-right: 0px;
+        width: 80%;
+        height: 100%;
+    }
 
+</style>
+<div id="Title">
+        <h2> Search page </h2>
+</div>
+<div id="container">
+    <div id="left" class="column">
+        <form class="was-validated" method="post">
+            <div class="nav nav-pills nav-fill">
+                <label for="description">Search description</label>
+                <input id="description" type="text" asp-for="@Model.querryDecorator.mDescription" />
+
+                <label for="System">Specialization</label>
+                <select id="System" class="custom-select custom-select-lg mb-3" asp-for="@Model.querryDecorator.mSpecialization">
+                    @foreach (var item in Model.allTheMedServices)
+                    {
+                        <option class="dropdown-item" href="/SearchPage">@Html.DisplayFor(modelItem => item.Specialization.Description)</option>
+                    }
+                </select>
+
+                <label for="Location">City</label>
+                <select id="Location" class="custom-select custom-select-lg mb-3" asp-for="@Model.querryDecorator.mCity">
+                    @foreach (var item in Model.locations)
+                    {
+                        <option class="dropdown-item" href="/SearchPage">@Html.DisplayFor(modelItem => item.City)</option>
+                    }
+                </select>
+
+                <label for="RaitingMin">Min rating</label>
+                <input id="RaitingMin" type="range" class="custom-range" min="0" max="5" step="1" asp-for="@Model.querryDecorator.mMinRating" />
+
+            </div>
+            <button type="submit" class="btn btn-primary" style="left:10%">Search</button>
+        </form>
+        <form class="was-validated" method="get">
+            <button class="btn btn-primary" style="left:10%">Reset</button>
+        </form>
     </div>
-    <button type="submit" class="btn btn-primary" style="left:10%">Search</button>
-</form>
-<form class="was-validated" method="get">
-    <button class="btn btn-primary" style="left:10%">Reset</button>
-</form>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.MedicalService.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MedicalService.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MedicalService.TargetBodySystem)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MedicalService.DayStartTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MedicalService.DayEndTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MedicalService.AppDefaultMinutes)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.listToDisplay)
-            {
+    <div id="right" class="column">
+        <table class="table overflow_content">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
                     <th>
-                        @Html.DisplayFor(modelItem => item.TargetBodySystem)
+                        @Html.DisplayNameFor(model => model.MedicalService.Name)
                     </th>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DayStartTime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DayEndTime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AppDefaultMinutes)
-                    </td>
-                    <td>
-                        <a asp-page="./Edit" asp-route-id="@item.id">Appoint</a> 
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MedicalService.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MedicalService.Specialization.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MedicalService.DayStartTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MedicalService.DayEndTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MedicalService.AppDefaultMinutes)
+                    </th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.listToDisplay)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.Specialization.Description)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DayStartTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DayEndTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AppDefaultMinutes)
+                        </td>
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@item.id">Appoint</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

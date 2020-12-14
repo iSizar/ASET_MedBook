@@ -57,10 +57,6 @@ namespace MedBook_RazorPages.Resources
                 {
                     isValid = false;
                 }
-                if (querryDecorator.mTargetBodySystem != default(string) && !medServ.TargetBodySystem.Contains(querryDecorator.mTargetBodySystem))
-                {
-                    isValid = false;
-                }
                 if (isValid)
                 {
                     retList.Add(medServ);
