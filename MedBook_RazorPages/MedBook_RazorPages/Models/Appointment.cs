@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MedBook_RazorPages.Models
 {
+    [Serializable]
+    [Table("Appointment")]
     public class Appointment
     {
         [Key]
@@ -21,7 +24,11 @@ namespace MedBook_RazorPages.Models
 
         public void Attach(Users? user, MedicalService? medicalService)
         {
-            throw new NotImplementedException();
+            User = user;
+            MedicalService = medicalService;
+
+            user.Appointments.Add(this);
+            medicalService.Appointments.Add(this);
         }
 
         public void Detach(Users? user, MedicalService? medicalService)

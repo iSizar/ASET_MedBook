@@ -1,0 +1,88 @@
+﻿@page
+@model MedBook_RazorPages.Pages.MedicalServices.ListModel
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>List</h1>
+
+@foreach (var item in Model.MedicalService) 
+{
+<div class="card mb-1">
+    <div class="card-body">
+        <h4 class="card-title">@item.Name</h4>
+        <h6 class="card-subtitle">Open from @item.DayStartTime to @item.DayEndTime</h6>
+        <p class="card-text">Some text about the medical service</p>
+        <a asp-page="View" asp-route-id="@item.id">View service</a>
+    </div>
+</div>
+}
+
+
+@*<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MedicalService[0].UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MedicalService[0].LocationId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MedicalService[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MedicalService[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MedicalService[0].TargetBodySystem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MedicalService[0].DayStartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MedicalService[0].DayEndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MedicalService[0].AppDefaultMinutes)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.MedicalService) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocationId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TargetBodySystem)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DayStartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DayEndTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppDefaultMinutes)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>*@

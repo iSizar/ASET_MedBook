@@ -25,9 +25,9 @@ namespace MedBook_RazorPages
             .ConfigureLogging((context, logging) =>
             {
                 logging.ClearProviders();
-                logging.AddConfiguration(context.Configuration.GetSection("Logging")) ;
+                logging.AddConfiguration(context.Configuration.GetSection("Logging"));
                 logging.AddDebug();
-                logging.AddConsole(); 
+                logging.AddConsole();
             })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
