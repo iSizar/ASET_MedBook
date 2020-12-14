@@ -16,10 +16,9 @@ namespace MedBook_RazorPages.Models
         
         public int UserId { get; set; }
         public int MedicalServiceId { get; set; }
-        MedicalService MedicalService { get; set; }
+        public MedicalService MedicalService { get; set; }
         public string Comment { get; set; }
         public int Rating { get; set; }
-
         public Appointment appointment { get; set; }
         public int stars { get; set; }
     }

@@ -27,7 +27,7 @@ namespace MedBook_RazorPages.Pages
         private readonly DatabaseContext _context;
         private IEasyCachingProvider _easyCachingProvider;
         private IEasyCachingProviderFactory _easyCachingFactory;
-        private DBDataAccess dataBase;
+        private FilterOfRows filterOfRows;
 
         [BindProperty]
         public List<MedicalService> listToDisplay { get; set; }
@@ -47,16 +47,16 @@ namespace MedBook_RazorPages.Pages
         {
             /* DataBase */
             this._context = context;
-            this.dataBase = new DBDataAccess(context);
+            this.filterOfRows = new FilterOfRows(new DBDataAccess(context));
             /* Chaching */
             this._easyCachingFactory = easyCachingFactory;
             this._easyCachingProvider = this._easyCachingFactory.GetCachingProvider("redis1");
             querryDecorator = new QuerryDecorator();
-            allTheMedServices = dataBase.getMedicalService();
+            allTheMedServices = filterOfRows.getMedicalService();
         }
         public void OnGet()
         {
-            locations = dataBase.getLocation();
+            locations = filterOfRows.getLocation();
             var chacedList = this._easyCachingProvider.Get<List<MedicalService>>("filtred");
             if (!chacedList.IsNull)
             {
@@ -65,13 +65,13 @@ namespace MedBook_RazorPages.Pages
             }
             else
             {
-                listToDisplay = dataBase.getMedicalService();
+                listToDisplay = filterOfRows.getMedicalService();
             }
         }
 
         public IActionResult OnPost()
         {
-            listToDisplay = dataBase.getMedicalService(querryDecorator); 
+            listToDisplay = filterOfRows.getMedicalService(querryDecorator); 
             this._easyCachingProvider.Set("filtred", listToDisplay, TimeSpan.FromDays(10));
             return RedirectToPage("Search");
         }
