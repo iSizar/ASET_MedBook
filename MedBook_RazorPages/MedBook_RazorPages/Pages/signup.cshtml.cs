@@ -66,7 +66,7 @@ namespace MedBook_RazorPages.Pages
 
         [NonAction]
 
-        public void SendVerificationLinkEmail(string emailID, string activationCode, string emailFor = "VerifyAccount")
+        public IActionResult SendVerificationLinkEmail(string emailID, string activationCode, string emailFor = "VerifyAccount")
         {
             var vefifyUrl = "/User/" + emailFor + "/" + activationCode;
             var link = "Account created"; 
