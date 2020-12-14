@@ -19,7 +19,9 @@ namespace MedBook_RazorPages.Models
         public string Description { get; set; }
         public DateTime TimeOfAppointment { get; set; }
         public TimeSpan AppointmentDuration { get; set; }
+        [ForeignKey("PacientId")]
         public Users User { get; set; }
+        [ForeignKey("MedicalServiceId")]
         public MedicalService MedicalService { get; set; }
 
         public void Attach(Users? user, MedicalService? medicalService)

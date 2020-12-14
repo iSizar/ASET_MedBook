@@ -10,17 +10,17 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.4.0/main.js"></script>
     <script>
         let calendarEvents = [];
-        @foreach (var appointment in Model.medicalService.Appointments)
+        @foreach (var appointment in Model.appointments)
         {
             <text>
-            let newCalendarEvent = {
-                start: @appointment.TimeOfAppointment.Date,
-                end: @((appointment.TimeOfAppointment + appointment.AppointmentDuration).Date),
-                startTime: @appointment.TimeOfAppointment.TimeOfDay,
-                endTime: @((appointment.TimeOfAppointment + appointment.AppointmentDuration).TimeOfDay),
-                editable: false
-            }
-            calendarEvents.push(newCalendarEvent)
+            calendarEvents.push({
+                start: "@DateTime.SpecifyKind(appointment.TimeOfAppointment, DateTimeKind.Local).ToString("s")",
+                end: "@(DateTime.SpecifyKind(appointment.TimeOfAppointment + appointment.AppointmentDuration, DateTimeKind.Local).ToString("s"))",
+                editable: false,
+                title: "@appointment.Description",
+                allDay: true,
+                id: @appointment.Id
+            })
             </text>
         }
         document.addEventListener('DOMContentLoaded', function () {
@@ -43,5 +43,5 @@
 
 </div>
 
-<a class="btn btn-success" asp-page="NewAppointment">Make new appointment</a>
+<a class="btn btn-success" asp-page="NewAppointment" asp-route-medicalServiceId="@Model.medicalService.id">Make new appointment</a>
 
