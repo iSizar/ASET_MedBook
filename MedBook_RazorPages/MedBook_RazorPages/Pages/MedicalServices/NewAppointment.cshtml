@@ -25,6 +25,10 @@
                     <select asp-for="Appointment.MedicalServiceId" class ="form-control" asp-items="ViewBag.MedicalServiceId"></select>
                 </div>
             }
+            else
+            {
+                <input asp-for="Appointment.MedicalServiceId" type="hidden" value="@Model.medicalServiceId" />
+            }
             <div class="form-group">
                 <label asp-for="Appointment.Description" class="control-label"></label>
                 <input asp-for="Appointment.Description" class="form-control" />
