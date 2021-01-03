@@ -17,7 +17,6 @@
                 start: "@DateTime.SpecifyKind(appointment.TimeOfAppointment, DateTimeKind.Local).ToString("s")",
                 end: "@(DateTime.SpecifyKind(appointment.TimeOfAppointment + appointment.AppointmentDuration, DateTimeKind.Local).ToString("s"))",
                 editable: false,
-                title: "@appointment.Description",
                 allDay: true,
                 id: @appointment.Id
             })

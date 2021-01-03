@@ -1,50 +1,62 @@
 ﻿@page
 @model MedBook_RazorPages.Pages.ReportsModel
-
 @{
     ViewData["Title"] = "Reports";
 }
-<style>
-    .checked {
-        color: orange;
-    }
 
-    #container {
-        width: 100%;
-        height: 100%;
-        min-width: 30vw;
-        min-height: 40vw;
-        background: #ffffff;
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.stock.min.js"></script>
+<script>
+    window.onload = function () {
+        var dps1 = [], dps2 = [];
+        var chart = new CanvasJS.StockChart("chartContainer", {
+            theme: "light2",
+            exportEnabled: true,
+            title: {
+                text: "Number Appointments with Date-Time Axis"
+            },
+            subtitles: [{
+                text: "Medical Service History"
+            }],
+            charts: [{
+                axisX: {
+                    crosshair: {
+                        enabled: true,
+                        snapToDataPoint: true
+                    }
+                },
+                axisY: {
+                    prefix: "#"
+                },
+                data: [{
+                    type: "candlestick",
+                    yValueFormatString: "NR: #,###.##",
+                    dataPoints: dps1
+                }]
+            }],
+            navigator: {
+                data: [{
+                    dataPoints: dps2
+                }],
+                slider: {
+                    minimum: new Date(2020, 01, 01),
+                    maximum: new Date()
+                }
+            }
+        });
+        $.getJSON("/GetAppointments", function (data) {
+           // alert("myObject is " + data);
+            data = JSON.parse(data)
+            for (var i = 0; i < data.length; i++) {
+                dps1.push({ x: new Date(data[i].date), y: [Number(data[i].nrAppointments), Number(data[i].nrAppointments), Number(0), Number(data[i].nrAppointments)] });
+                dps2.push({ x: new Date(data[i].date), y: Number(data[i].nrAppointments) });
+            }
+            chart.render();
+        });
     }
-
-    .column {
-        height: auto;
-        float: left;
-        overflow: auto;
-    }
-
-    #left {
-        margin-left: 0px;
-        width: 20%;
-        height: 100%;
-    }
-
-    #right {
-        margin-right: 0px;
-        width: 80%;
-        height: 100%;
-    }
-</style>
-
-<h1>Reports</h1>
+</script>
 
 <hr />
-<div id="container">
-    <div id="left" class="column">
-    </div>
-    <div id="right" class="column">
-        <div style="height: 690px; width:1000px;">
-            <div  style="height: 100px; margin-top:175px; width:100px; background:red;" /><br />
-        </div>
-    </div>
-</div>
+<div id="chartContainer" style="width:100%; height:280px"></div>
