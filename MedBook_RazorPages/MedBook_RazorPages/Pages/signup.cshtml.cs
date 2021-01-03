@@ -41,10 +41,11 @@ namespace MedBook_RazorPages.Pages
             _logger.LogInformation("Se face request de tip get");
         }
 
-        public async Task<IActionResult> OnPost()
+        public IActionResult OnPost()
         {
 
-            if (users.FirstName != "" && users.LastName != ""  && users.Email != "" && (users.UserType == 1 || users.UserType == 2)) {
+            if (users.FirstName != "" && users.LastName != "" && users.Email != "" && (users.UserType == 1 || users.UserType == 2))
+            {
                 _logger.LogInformation("Adaugarea informatiilor in baza de date");
                 Console.WriteLine(users.Email);
                 _logger.LogInformation("Se cripteaza parola");
@@ -64,12 +65,11 @@ namespace MedBook_RazorPages.Pages
                 return RedirectToPage("index");
             }
             return RedirectToPage("signup");
-            
+
 
         }
 
         [NonAction]
-
         public int SendVerificationLinkEmail(string emailID, string activationCode, string emailFor = "VerifyAccount")
         {
             var vefifyUrl = "/User/" + emailFor + "/" + activationCode;
@@ -115,9 +115,9 @@ namespace MedBook_RazorPages.Pages
                 Body = body,
                 IsBodyHtml = true
             })
-
                 smtp.Send(message);
             return 1;
+
         }
 
     }

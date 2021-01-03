@@ -53,15 +53,28 @@ button.accept-policy {
 
 /* Sticky footer styles
 -------------------------------------------------- */
+
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    background: url("../images/background.jpeg") no-repeat center padding-box;
+    margin: 0px;
+    min-height: 100%;
+    max-height: inherit;
+    max-width: inherit;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    margin: 1%;
+    padding: 0px;
+    border: 0px;
+    background: #ffffff;
+    height: 100%;
+    width: 100%;
 }
+
 .footer {
   position: absolute;
   bottom: 0;

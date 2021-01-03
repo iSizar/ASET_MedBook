@@ -18,11 +18,12 @@ namespace MedBook_RazorPages.Pages.MedicalServices
             _context = context;
         }
 
-        public IList<MedicalService> MedicalService { get;set; }
+        public List<MedicalService> MedicalService { get;set; }
 
-        public async Task OnGetAsync()
+        public IActionResult OnGetAsync()
         {
-            MedicalService = await _context.MedicalService.ToListAsync();
+            MedicalService = _context.MedicalService.ToList();
+            return Page();
         }
     }
 }
