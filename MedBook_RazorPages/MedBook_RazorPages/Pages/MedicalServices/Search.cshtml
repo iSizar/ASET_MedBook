@@ -1,0 +1,49 @@
+﻿@page
+@model MedBook_RazorPages.Pages.SearchModel
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<form class="was-validated mb-1" method="post">
+    <div class="nav nav-pills nav-fill">
+        <input type="text" asp-for="@Model.querryDecorator.mDescription">
+
+        <select id="System" class="custom-select custom-select-lg mb-3" asp-for="@Model.querryDecorator.mSpecialization">
+            <option class="dropdown-item" value="">Any</option>
+            @foreach (var item in Model.allTheMedServices)
+            {
+                <option class="dropdown-item" href="/SearchPage">@Html.DisplayFor(modelItem => item.Specialization.Description)</option>
+            }
+        </select>
+
+        <select id="Location" class="custom-select custom-select-lg mb-3" asp-for="@Model.querryDecorator.mCity">
+            <option class="dropdown-item" value="">Any</option>
+            @foreach (var item in Model.locations)
+            {
+                <option class="dropdown-item" href="/SearchPage">@Html.DisplayFor(modelItem => item.City)</option>
+            }
+        </select>
+
+        <label for="customRange3">Min rating</label>
+        <input id="RaitingMin" type="range" class="custom-range" min="0" max="5" step="1" asp-for="@Model.querryDecorator.mMinRating">
+
+    </div>
+    <button type="submit" class="btn btn-primary" style="left:10%">Search</button>
+</form>
+<form class="was-validated mb-1" method="get">
+    <button class="btn btn-primary" style="left:10%">Reset</button>
+</form>
+
+@foreach (var item in Model.listToDisplay)
+{
+    <div class="card mb-2">
+        <div class="card-body">
+            <h4 class="card-title">@Html.DisplayFor(modelItem => item.Name) - @Html.DisplayFor(modelItem => item.Specialization.Description)</h4>
+            <h6 class="card-subtitle">Open from @Html.DisplayFor(modelItem => item.DayStartTime) to @Html.DisplayFor(modelItem => item.DayEndTime)</h6>
+            <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+            <a class="mr-2" asp-page="Details" asp-route-id="@item.id">View service</a>
+            <a asp-page="NewAppointment" asp-route-medicalServiceId="@item.id">Make an appointment</a>
+        </div>
+    </div>
+}
