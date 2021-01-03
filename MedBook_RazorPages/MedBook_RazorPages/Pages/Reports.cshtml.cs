@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using MedBook_RazorPages.Models;
 using EasyCaching.Core;
 using MedBook_RazorPages.Resources;
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace MedBook_RazorPages.Pages
 {
@@ -17,6 +19,12 @@ namespace MedBook_RazorPages.Pages
         private IEasyCachingProvider _easyCachingProvider;
         private IEasyCachingProviderFactory _easyCachingFactory;
         private DBDataAccess dataBase;
+        
+        [Inject]
+        public IJSRuntime JSRuntime { get; set; }
+
+        [BindProperty]
+        public List<Appointment> appointments { get; set; }
         public ReportsModel(MedBook_RazorPages.Models.DatabaseContext context, IEasyCachingProviderFactory easyCachingFactory)
         {
             /* DataBase */
@@ -27,27 +35,26 @@ namespace MedBook_RazorPages.Pages
             this._easyCachingProvider = this._easyCachingFactory.GetCachingProvider("redis1");
         }
 
-        public IActionResult OnGet()
+        [System.Web.Mvc.Route("~/GetMessage")]
+        public ActionResult GetMessage()
         {
-            return Page();
+            string message = "Welcome";
+            return new JsonResult(message);
         }
 
-        [BindProperty]
-        public Review Review { get; set; }
-
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public void OnGet()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            appointments = dataBase.getAppointment().ToList();
+           // await ShowAlertWindow();
+           // return Page();
+        }
 
-            _context.Review.Add(Review);
-            await _context.SaveChangesAsync();
+ 
 
-            return RedirectToPage("./Index");
+        public void OnPostAsync()
+        {
+            appointments = dataBase.getAppointment().ToList();
+            //return Page();
         }
     }
 }

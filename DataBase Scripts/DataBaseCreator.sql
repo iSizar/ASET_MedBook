@@ -60,7 +60,8 @@ id int primary key identity(1, 1),
 PacientId int,
 MedicalServiceId int,
 TimeOfAppointment datetime, 
-AppointmentDuration time
+AppointmentDuration time,
+Description varchar(50)
 
 FOREIGN KEY (PacientId) REFERENCES Users(id),
 FOREIGN KEY (MedicalServiceId) REFERENCES MedicalService(id)
