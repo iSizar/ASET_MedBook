@@ -31,6 +31,10 @@ namespace MedBook_RazorPages.Pages
             _logger = logger;
         }
 
+        public signupModel()
+        {
+        }
+
         public void OnGet()
         {
             users = new Users();
@@ -66,8 +70,7 @@ namespace MedBook_RazorPages.Pages
         }
 
         [NonAction]
-
-        public IActionResult SendVerificationLinkEmail(string emailID, string activationCode, string emailFor = "VerifyAccount")
+        public int SendVerificationLinkEmail(string emailID, string activationCode, string emailFor = "VerifyAccount")
         {
             var vefifyUrl = "/User/" + emailFor + "/" + activationCode;
             var link = "Account created"; 
@@ -112,17 +115,9 @@ namespace MedBook_RazorPages.Pages
                 Body = body,
                 IsBodyHtml = true
             })
-             
-            smtp.Send(message);
-            _logger.LogInformation("Adaugarea informatiilor in baza de date");
-            Console.WriteLine(users.Email);
-            _logger.LogInformation("Se cripteaza parola");
-            users.Password = BCrypt.Net.BCrypt.HashPassword(users.Password);
-            _logger.LogInformation("Se adauga informatiile culese din pagina");
-            db.Users.Add(users);
-            db.SaveChanges();
-            _logger.LogInformation("Informatiile au fost salvate si se face redirect catre pagina index");
-            return RedirectToPage("index");
+                smtp.Send(message);
+            return 1;
+
         }
 
     }
