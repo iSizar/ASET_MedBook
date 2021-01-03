@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MedBook_RazorPages.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace MedBook_RazorPages.Pages
 {
@@ -14,6 +15,7 @@ namespace MedBook_RazorPages.Pages
         private readonly DatabaseContext _context;
 
         public int? medicalServiceId;
+        public int pacientId;
 
         public NewAppointmentModel(DatabaseContext context)
         {
@@ -21,15 +23,13 @@ namespace MedBook_RazorPages.Pages
             medicalServiceId = null;
         }
 
-        //public IActionResult OnGet()
-        //{
-        //    ViewData["MedicalServiceId"] = new SelectList(_context.MedicalService, "id", "id");
-        //    return Page();
-        //}
-
         public IActionResult OnGet(int? medicalServiceId)
         {
-            ViewData["MedicalServiceId"] = new SelectList(_context.MedicalService, "id", "id");
+            if (HttpContext.Session.GetString("email") == null)
+            {
+                return RedirectToAction("/index");
+            }
+            ViewData["MedicalServiceId"] = new SelectList(_context.MedicalService, "id", "Name");
             this.medicalServiceId = medicalServiceId;
             return Page();
         }
@@ -46,10 +46,14 @@ namespace MedBook_RazorPages.Pages
                 return Page();
             }
 
+            var pacientEmail = HttpContext.Session.GetString("email");
+            pacientId = _context.Users.Where(x => x.Email == pacientEmail).FirstOrDefault().id;
+
+            Appointment.PacientId = pacientId;
             _context.Appointment.Add(Appointment);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("Details", new { id = Appointment.MedicalServiceId });
         }
     }
 }
