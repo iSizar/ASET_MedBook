@@ -1,34 +1,62 @@
 ﻿@page
 @model MedBook_RazorPages.Pages.ReportsModel
-
 @{
     ViewData["Title"] = "Reports";
 }
 
-<h1>Reports</h1>
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.stock.min.js"></script>
+<script>
+    window.onload = function () {
+        var dps1 = [], dps2 = [];
+        var chart = new CanvasJS.StockChart("chartContainer", {
+            theme: "light2",
+            exportEnabled: true,
+            title: {
+                text: "Number Appointments with Date-Time Axis"
+            },
+            subtitles: [{
+                text: "Medical Service History"
+            }],
+            charts: [{
+                axisX: {
+                    crosshair: {
+                        enabled: true,
+                        snapToDataPoint: true
+                    }
+                },
+                axisY: {
+                    prefix: "#"
+                },
+                data: [{
+                    type: "candlestick",
+                    yValueFormatString: "NR: #,###.##",
+                    dataPoints: dps1
+                }]
+            }],
+            navigator: {
+                data: [{
+                    dataPoints: dps2
+                }],
+                slider: {
+                    minimum: new Date(2020, 01, 01),
+                    maximum: new Date()
+                }
+            }
+        });
+        $.getJSON("/GetAppointments", function (data) {
+           // alert("myObject is " + data);
+            data = JSON.parse(data)
+            for (var i = 0; i < data.length; i++) {
+                dps1.push({ x: new Date(data[i].date), y: [Number(data[i].nrAppointments), Number(data[i].nrAppointments), Number(0), Number(data[i].nrAppointments)] });
+                dps2.push({ x: new Date(data[i].date), y: Number(data[i].nrAppointments) });
+            }
+            chart.render();
+        });
+    }
+</script>
 
-<h4>Review</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Review.stars" class="control-label"></label>
-                <input asp-for="Review.stars" class="form-control" />
-                <span asp-validation-for="Review.stars" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+<div id="chartContainer" style="width:100%; height:280px"></div>

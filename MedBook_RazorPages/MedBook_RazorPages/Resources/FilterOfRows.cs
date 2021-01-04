@@ -8,56 +8,35 @@ namespace MedBook_RazorPages.Resources
 {
     public class FilterOfRows
     {
+        private IDataAccess dataAccess;
 
-        public Location getLocationWithId(List<Location> locations, int id)
-        {
-            return locations.Where(l => l.id == id).FirstOrDefault();
-        }
-
-        public List<MedicalService> getAllMedicalSerices(List<MedicalService> medicalService,
-            List<Location> locations,
-            QuerryDecorator querryDecorator)
+        public FilterOfRows(IDataAccess dataAccess) => this.dataAccess = dataAccess;
+       
+        public List<MedicalService> getMedicalService(QuerryDecorator qd)
         {
             List<MedicalService> retList = new List<MedicalService>();
             retList.Clear();
-           
-            foreach (MedicalService medServ in medicalService)
+            bool isValid;
+
+            foreach (MedicalService medServ in dataAccess.getMedicalService())
             {
-                bool isValid = true;
-                Location loc = locations.Where(loc => loc.id == medServ.Location.id).Single();
-                if (querryDecorator.mCity != default(string) && !loc.City.Equals(querryDecorator.mCity))
-                {  
-                        isValid = false;
-                }
+                isValid = true;
 
-                if (querryDecorator.mDescription != default(string) && !medServ.Description.Trim().ToLower().Contains(querryDecorator.mDescription.Trim().ToLower()))
-                {
-                        isValid = false;    
-                }
-
-                if (isValid)
-                {
-                    retList.Add(medServ);
-                }
-            }
-            return retList;
-        }
-
-
-        public List<MedicalService> getAllMedicalSerices(List<MedicalService> medicalService,
-            QuerryDecorator querryDecorator)
-        {
-            List<MedicalService> retList = new List<MedicalService>();
-            retList.Clear();
-
-            foreach (MedicalService medServ in medicalService)
-            {
-                bool isValid = true;
-                if (querryDecorator.mDescription != default(string) && !medServ.Description.Contains(querryDecorator.mDescription))
+                if (qd.mDescription != default && !medServ.Description.ToLower().Contains(qd.mDescription.ToLower()))
                 {
                     isValid = false;
                 }
-                if (querryDecorator.mTargetBodySystem != default(string) && !medServ.TargetBodySystem.Contains(querryDecorator.mTargetBodySystem))
+                if (qd.mSpecialization != default && !medServ.Specialization.Description.Contains(qd.mSpecialization))
+                {
+                    isValid = false;
+                }
+                if (qd.mCity != default && !medServ.Location.City.ToLower().Contains(qd.mCity.ToLower()))
+                {
+                    isValid = false;
+                }
+                if (qd.mMinRating != default &&
+                    dataAccess.getReview().Where(r => r.MedicalServiceId == medServ.id).Count() > 0 &&
+                    qd.mMinRating > dataAccess.getReview().Where(r => r.MedicalServiceId == medServ.id).Average(r => r.Rating))
                 {
                     isValid = false;
                 }
@@ -69,11 +48,26 @@ namespace MedBook_RazorPages.Resources
             return retList;
         }
 
-        public List<string> getAllMedicalSericesProviders()
+        public List<Users> getUsers()
         {
-            throw new NotImplementedException();
+            return dataAccess.getUsers();
         }
 
-
+        public List<MedicalService> getMedicalService() 
+        {
+            return dataAccess.getMedicalService();
+        }
+        public List<Review> getReview()
+        {
+            return dataAccess.getReview();
+        }
+        public List<Location> getLocation()
+        {
+            return dataAccess.getLocation();
+        }
+        public List<Appointment> getAppointment()
+        {
+            return dataAccess.getAppointment();
+        }
     }
 }

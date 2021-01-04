@@ -9,11 +9,11 @@
     <div class="nav nav-pills nav-fill">
         <input type="text" asp-for="@Model.querryDecorator.mDescription">
 
-        <select id="System" class="custom-select custom-select-lg mb-3" asp-for="@Model.querryDecorator.mTargetBodySystem">
+        <select id="System" class="custom-select custom-select-lg mb-3" asp-for="@Model.querryDecorator.mSpecialization">
             <option class="dropdown-item" value="">Any</option>
             @foreach (var item in Model.allTheMedServices)
             {
-                <option class="dropdown-item" href="/SearchPage">@Html.DisplayFor(modelItem => item.TargetBodySystem)</option>
+                <option class="dropdown-item" href="/SearchPage">@Html.DisplayFor(modelItem => item.Specialization.Description)</option>
             }
         </select>
 
@@ -26,9 +26,7 @@
         </select>
 
         <label for="customRange3">Min rating</label>
-        <input id="RaitingMin" type="range" class="custom-range" min="0" max="5" step="1" asp-for="@Model.querryDecorator.mLeftRating">
-        <label for="customRange3">Max rating</label>
-        <input id="RaitingMax" type="range" class="custom-range" min="0" max="5" step="1" asp-for="@Model.querryDecorator.mRightRating">
+        <input id="RaitingMin" type="range" class="custom-range" min="0" max="5" step="1" asp-for="@Model.querryDecorator.mMinRating">
 
     </div>
     <button type="submit" class="btn btn-primary" style="left:10%">Search</button>
@@ -47,7 +45,7 @@
 {
     <div class="card mb-2">
         <div class="card-body">
-            <h4 class="card-title">@Html.DisplayFor(modelItem => item.Name) - @Html.DisplayFor(modelItem => item.TargetBodySystem)</h4>
+            <h4 class="card-title">@Html.DisplayFor(modelItem => item.Name) - @Html.DisplayFor(modelItem => item.Specialization.Description)</h4>
             <h6 class="card-subtitle">Open from @Html.DisplayFor(modelItem => item.DayStartTime) to @Html.DisplayFor(modelItem => item.DayEndTime)</h6>
             <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
             <a class="mr-2" asp-page="Details" asp-route-id="@item.id">View service</a>

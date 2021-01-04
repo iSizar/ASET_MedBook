@@ -29,33 +29,12 @@ namespace MedBook_RazorPages.Resources
 
         public List<MedicalService> getMedicalService()
         {
-            return _db.MedicalService.ToList();
-        }
-        public List<MedicalService> getMedicalService(QuerryDecorator qd)
-        {
             List<MedicalService> retList = new List<MedicalService>();
-            retList.Clear();
-            bool isValid;
-
-            foreach (MedicalService medServ in _db.MedicalService.ToList().ToList())
+            foreach (MedicalService medServ in _db.MedicalService.ToList())
             {
-                isValid = true;
-                if (qd.mDescription != default(string) && !medServ.Description.Contains(qd.mDescription))
-                {
-                    isValid = false;
-                }
-                if (qd.mTargetBodySystem != default(string) && !medServ.TargetBodySystem.Contains(qd.mTargetBodySystem))
-                {
-                    isValid = false;
-                }
-                /*if (qd.mCity != default(string) && !medServ.Location.City.Contains(qd.mCity))
-                {
-                    isValid = false;
-                }*/
-                if (isValid)
-                {
-                    retList.Add(medServ);
-                }
+                _db.Entry(medServ).Reference(m => m.Specialization).Load();
+                _db.Entry(medServ).Reference(m => m.Location).Load();
+                retList.Add(medServ);
             }
             return retList;
         }

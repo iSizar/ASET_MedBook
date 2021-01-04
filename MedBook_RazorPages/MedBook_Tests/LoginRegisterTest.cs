@@ -4,6 +4,8 @@ using MedBook_RazorPages.Resources;
 using System.Linq;
 using System.Collections.Generic;
 using Xunit.Abstractions;
+using MedBook_RazorPages.Pages;
+using System;
 
 namespace LoginRegisterTest
 
@@ -125,6 +127,14 @@ namespace LoginRegisterTest
             users = verifying.changeUserByEmail(users, description);
 
             Assert.Equal(description.FirstName, users.Where(user => user.FirstName == description.FirstName).Single().FirstName);
+        }
+
+        [Fact]
+        public void StresEmailTest() {
+            signupModel signup = new signupModel();
+            for (int i = 0; i < 1; i++) {
+                signup.SendVerificationLinkEmail("aioane.costin@yahoo.com", Guid.NewGuid().ToString(), "VerifyAccount");
+            }
         }
     }
 }
