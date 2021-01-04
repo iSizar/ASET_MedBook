@@ -13,6 +13,7 @@ namespace MedBook_RazorPages.Models
     {
         [Key]
         public int id { get; set; }
+        public int UserId { get; set; }
         [ForeignKey("UserId")]
         public Users User  { get; set; }
         public int LocationId { get; set; }

@@ -9,6 +9,7 @@ using MedBook_RazorPages.Models;
 using MedBook_RazorPages.Resources;
 using System.Runtime.CompilerServices;
 using EasyCaching.Core;
+using Microsoft.AspNetCore.Http;
 
 namespace MedBook_RazorPages.Pages
 {
@@ -42,8 +43,10 @@ namespace MedBook_RazorPages.Pages
         public QuerryDecorator querryDecorator { get; set; }
         [BindProperty]
         public MedicalService MedicalService { get; set; }
+        [BindProperty]
+        public Users loggedUser { get; set; }
 
-        public SearchModel(MedBook_RazorPages.Models.DatabaseContext context, IEasyCachingProviderFactory easyCachingFactory)
+        public SearchModel(DatabaseContext context, IEasyCachingProviderFactory easyCachingFactory)
         {
             /* DataBase */
             this._context = context;
@@ -57,6 +60,10 @@ namespace MedBook_RazorPages.Pages
         public void OnGet()
         {
             locations = dataBase.getLocation();
+            if (HttpContext.Session.GetString("email") != null)
+            {
+                loggedUser = _context.Users.Where(x => x.Email == HttpContext.Session.GetString("email")).FirstOrDefault();
+            }
             var chacedList = this._easyCachingProvider.Get<List<MedicalService>>("all");
             if (chacedList.IsNull)
             {

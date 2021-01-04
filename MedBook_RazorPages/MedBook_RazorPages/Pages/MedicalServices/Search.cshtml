@@ -36,6 +36,12 @@
 <form class="was-validated mb-1" method="get">
     <button class="btn btn-primary" style="left:10%">Reset</button>
 </form>
+@if (Model.loggedUser?.UserType == 2)
+{
+    <form asp-page="NewMedicalService" class="mb-1" method="get">
+        <button class="btn btn-success">Create a new service</button>
+    </form>
+}
 
 @foreach (var item in Model.listToDisplay)
 {

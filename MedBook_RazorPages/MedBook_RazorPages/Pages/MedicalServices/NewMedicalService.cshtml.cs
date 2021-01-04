@@ -22,14 +22,16 @@ namespace MedBook_RazorPages.Pages
         public NewMedicalServiceModel(DatabaseContext context)
         {
             _context = context;
-            var email = HttpContext.Session.GetString("email");
-            user = context.Users.SingleOrDefault(a => a.Email.Equals(email));
             locations = context.Location.ToList();
         }
 
         public IActionResult OnGet()
         {
-            return Page();
+            var email = HttpContext.Session.GetString("email");
+            var user = _context.Users.SingleOrDefault(a => a.Email.Equals(email));
+            if (_context.Users.SingleOrDefault(a => a.Email.Equals(email)).UserType == 2)
+                return Page();
+            return RedirectToPage("Index");
         }
 
         [BindProperty]
@@ -43,7 +45,8 @@ namespace MedBook_RazorPages.Pages
             {
                 return Page();
             }
-
+            var email = HttpContext.Session.GetString("email");
+            MedicalService.UserId = _context.Users.SingleOrDefault(a => a.Email.Equals(email)).id;
             _context.MedicalService.Add(MedicalService);
             await _context.SaveChangesAsync();
 
