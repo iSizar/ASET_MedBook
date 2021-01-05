@@ -5,6 +5,8 @@ using EasyCaching.Core;
 using MedBook_RazorPages.Models;
 using MedBook_RazorPages.Resources;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 
 namespace MedBook_RazorPages.Pages
 {
@@ -23,14 +25,19 @@ namespace MedBook_RazorPages.Pages
 
         [BindProperty]
         public List<Appointment> appointments { get; set; }
-        public ReportsController(MedBook_RazorPages.Models.DatabaseContext context, IEasyCachingProviderFactory easyCachingFactory)
+        public ReportsController(MedBook_RazorPages.Models.DatabaseContext context, IEasyCachingProviderFactory easyCachingFactory, ILogger<PageModel> logger)
         {
-            /* DataBase */
-            this._context = context;
-            this.filterOfRows = new FilterOfRows(new DBDataAccess(context));
+
             /* Chaching */
             this._easyCachingFactory = easyCachingFactory;
             this._easyCachingProvider = this._easyCachingFactory.GetCachingProvider("redis1");
+
+            /* DataBase */
+            this._context = context;
+            var aspect = new DBLoggingAspect<IDataAccess>(easyCachingFactory, logger);
+            IDataAccess service = aspect.Build(new DBDataAccess(context));
+
+            this.filterOfRows = new FilterOfRows(service);
         }
 
         [Route("~/GetAppointments")]

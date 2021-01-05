@@ -120,8 +120,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.AppDefaultMinutes)
                         </td>
-                        <td>
-                            <a asp-page="/MedicalServices/NewAppointment" asp-route-id="@item.id">Appoint</a>
+                        <td style="left:6%">
+                            <a class="mr-2" asp-page="MedicalServices/Details" asp-route-id="@item.id">View service</a>
+                            <a asp-page="MedicalServices/NewAppointment" asp-route-medicalServiceId="@item.id">Make an appointment</a>
                         </td>
                     </tr>
                 }
