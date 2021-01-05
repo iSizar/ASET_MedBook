@@ -9,19 +9,13 @@ using MedBook_RazorPages.Models;
 using MedBook_RazorPages.Resources;
 using System.Runtime.CompilerServices;
 using EasyCaching.Core;
+using Microsoft.Extensions.Logging;
+using MedBook_RazorPages.Resources.MOP;
 
 namespace MedBook_RazorPages.Pages
 {
-   /* public aspect MyAspect
-    {
-        pointcut SumPointCut void MainClass.Sum(int a, int b);
-
-        before SumPointCut(int a, int b)
-      {
-            Console.WriteLine(
-               "The sum of numbers {0} and {1} will be calculated.", a, b);
-        }
-    }*/
+   
+    [PageSecurityMonitor]
     public class SearchModel : PageModel
     {
         private readonly DatabaseContext _context;
@@ -43,14 +37,19 @@ namespace MedBook_RazorPages.Pages
         [BindProperty]
         public MedicalService MedicalService { get; set; }
 
-        public SearchModel(MedBook_RazorPages.Models.DatabaseContext context, IEasyCachingProviderFactory easyCachingFactory)
+        public SearchModel(MedBook_RazorPages.Models.DatabaseContext context, IEasyCachingProviderFactory easyCachingFactory, ILogger<SearchModel> logger)
         {
-            /* DataBase */
-            this._context = context;
-            this.filterOfRows = new FilterOfRows(new DBDataAccess(context));
             /* Chaching */
             this._easyCachingFactory = easyCachingFactory;
             this._easyCachingProvider = this._easyCachingFactory.GetCachingProvider("redis1");
+
+            /* DataBase */
+            this._context = context;
+            var aspect = new DBLoggingAspect<IDataAccess>(easyCachingFactory, logger);
+            IDataAccess service = aspect.Build(new DBDataAccess(context));
+
+            this.filterOfRows = new FilterOfRows(service);
+            
             querryDecorator = new QuerryDecorator();
             allTheMedServices = filterOfRows.getMedicalService();
         }

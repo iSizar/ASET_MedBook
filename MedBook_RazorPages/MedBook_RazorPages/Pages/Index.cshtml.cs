@@ -5,6 +5,8 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 using MedBook_RazorPages.Services;
 using Microsoft.Extensions.Logging;
+using EasyCaching.Core;
+using System;
 
 namespace MedBook_RazorPages.Pages
 {
@@ -14,12 +16,20 @@ namespace MedBook_RazorPages.Pages
 
         private readonly ILogger<IndexModel> _logger;
 
+        private IEasyCachingProvider _easyCachingProvider;
+        private IEasyCachingProviderFactory _easyCachingFactory;
+
         public string Msg;
 
-        public IndexModel(DatabaseContext _db, ILogger<IndexModel> logger)
+        public IndexModel(DatabaseContext _db, IEasyCachingProviderFactory easyCachingFactory, ILogger<IndexModel> logger)
         {
             db = _db;
             _logger = logger;
+
+            /* Chaching */
+            this._easyCachingFactory = easyCachingFactory;
+            this._easyCachingProvider = this._easyCachingFactory.GetCachingProvider("redis1");
+
         }
 
        
@@ -62,6 +72,25 @@ namespace MedBook_RazorPages.Pages
             {
                 _logger.LogInformation("Credentiale introduse corect");
                 HttpContext.Session.SetString("email", acc.Email);
+                this._easyCachingProvider.Set("email", acc.Email, TimeSpan.FromDays(10));
+                var cookieOptions = new CookieOptions
+                {
+                    // Set the secure flag, which Chrome's changes will require for SameSite none.
+                    // Note this will also require you to be running on HTTPS
+                    Secure = true,
+
+                    // Set the cookie to HTTP only which is good practice unless you really do need
+                    // to access it client side in scripts.
+                    HttpOnly = true,
+
+                    // Add the SameSite attribute, this will emit the attribute with a value of none.
+                    // To not emit the attribute at all set the SameSite property to SameSiteMode.Unspecified.
+                    SameSite = SameSiteMode.None
+                    
+                };
+
+                // Add the cookie to the response cookie collection
+                Response.Cookies.Append("email", "cookieValue", cookieOptions);
                 return RedirectToPage("Welcome");
             }
         }
